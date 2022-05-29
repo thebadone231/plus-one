@@ -1,16 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Pressable,
-} from 'react-native';
-import { handleSignIn } from '../../services/Firebase';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Pressable} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { handleSignIn} from '../../services/Firebase';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -28,33 +20,21 @@ const LoginScreen = () => {
   };
 
   const secureTextEntry = () => {
-    if (visible.name === 'eye') {
-      return false;
-    } else if (visible.name === 'eye-off') {
-      return true;
-    }
-  };
-
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
-
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-  };
+    return visible.name === 'eye-off';
+};
 
   const handleSignInClick = async () => {
     if (email === '' || password === '') {
-      console.error('Invalid Credentials');
+      console.log('invalid credentials')
     } else {
-      try {
-        () => navigation.navigate('LoginScreen');
-        await handleSignIn(email, password);
-      } catch (error) {
+    try {
+          await handleSignIn(email, password);
+          navigation.navigate('MainInterface');
+        } catch (error) {
         console.error(error);
       }
-    }
-  };
+    };
+  }
 
   return (
     <View style={styles.background}>
@@ -66,15 +46,13 @@ const LoginScreen = () => {
         <View style={[styles.horizontalLayout, { marginBottom: 10 }]}>
           <Image
             style={styles.imageDimension}
-            source={{
-              uri: 'http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png',
-            }}
+            source={require('../../assets/user.png')}
           />
           <TextInput
             style={styles.inputBox}
             placeholder="Email"
             value={email}
-            onChangeText={handleEmailChange}
+            onChangeText={(email) => {setEmail(email)}}
             returnKeyType="next"
             defaultValue={email}
           />
@@ -83,14 +61,12 @@ const LoginScreen = () => {
         <View style={styles.horizontalLayout}>
           <Image
             style={styles.imageDimension}
-            source={{
-              uri: 'https://cdn-icons-png.flaticon.com/512/159/159069.png',
-            }}
+            source={require('../../assets/password.png')}
           />
           <TextInput
             style={styles.inputBox}
             defaultValue={password}
-            onChangeText={handlePasswordChange}
+            onChangeText={(password) => {setPassword(password)}}
             placeholder="Password"
             placeholderTextColor="grey"
             returnKeyType="go"
@@ -109,9 +85,7 @@ const LoginScreen = () => {
           <Pressable onPress={handleSignInClick}>
             <Image
               style={styles.imageDimension}
-              source={{
-                uri: 'https://www.freeiconspng.com/thumbs/arrow-icon/right-arrow-icon-27.png',
-              }}
+              source={require('../../assets/login-arrow.png')}
             />
           </Pressable>
         </View>
@@ -126,9 +100,7 @@ const LoginScreen = () => {
             <Text style={styles.text}>New User</Text>
             <Image
               style={styles.imageDimension}
-              source={{
-                uri: 'https://cdn2.iconfinder.com/data/icons/user-actions-15/24/user_email_mail_account_profile-512.png',
-              }}
+              source={require('../../assets/new-user.webp')}
             />
           </TouchableOpacity>
         </View>
@@ -141,9 +113,7 @@ const LoginScreen = () => {
             <Text style={styles.text}>Forgot Password</Text>
             <Image
               style={styles.imageDimension}
-              source={{
-                uri: 'https://cdn-icons-png.flaticon.com/512/72/72371.png',
-              }}
+              source={require('../../assets/forgot-password.png')}
             />
           </TouchableOpacity>
         </View>

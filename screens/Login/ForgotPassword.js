@@ -58,7 +58,7 @@ const ForgotPassword = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={email}
-                onChangeText={handleEmailChange}
+                onChangeText={(email) => {setEmail(email)}}
                 textContentType="emailAddress"
                 placeholder="Email Address"
                 placeholderTextColor="grey"
