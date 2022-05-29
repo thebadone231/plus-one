@@ -9,11 +9,13 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 import { handleSignUp } from '../../services/Firebase';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const NewUser = () => {
   const navigation = useNavigation();
@@ -24,7 +26,7 @@ const NewUser = () => {
   const [visible, setVisibility] = useState({ name: 'eye-off' });
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [homeAddress, setHomeAddress] = useState('');
   const [postalCode, setPostalCode] = useState('');
@@ -40,70 +42,25 @@ const NewUser = () => {
 
   //Handles password visibility when the eye icon is pressed
   const secureTextEntry = () => {
-    if (visible.name === 'eye') {
-      return false;
-    } else if (visible.name === 'eye-off') {
-      return true;
-    }
-  };
-
-  //Handles email input
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
-
-  //Handles password input
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-  };
-
-  //Handles confirm password input
-  const handleConfirmPasswordChange = (text) => {
-    setConfirmPassword(text);
-  };
-
-  //Handles first name input
-  const handleFirstNameChange = (text) => {
-    setFirstName(text);
-  };
-
-  //Handles last name input
-  const handleLastNameChange = (text) => {
-    setLastName(text);
-  };
-
-  //Handles username input
-  const handleUsernameChange = (text) => {
-    setUsername(text);
-  };
-
-  //Handles contact number input
-  const handleContactNumberChange = (text) => {
-    setContactNumber(text);
-  };
-
-  //Handles home address input
-  const handleHomeAddressChange = (text) => {
-    setHomeAddress(text);
-  };
-
-  //Handles postal code input
-  const handlePostalCodeChange = (text) => {
-    setPostalCode(text);
+      return visible.name === 'eye-off';
   };
 
   //Handles sign up
   const handleSubmit = async () => {
     if (
-      email === '' &&
-      password !== confirmPassword &&
-      password === '' &&
-      confirmPassword === ''
+      email === '' ||
+      password === '' ||
+      confirmPassword === '' || 
+      password !== confirmPassword
     ) {
-      console.error('Invalid Credentials');
+      Alert.alert('Invalid credentials')
+    } else if (password.length < 8) {
+      Alert.alert('the minimum length of password is 8')
     } else {
       try {
-        await handleSignUp(email, password);
+        await handleSignUp(email, password, firstName, lastName, userName, contactNumber, homeAddress, postalCode);
+        Alert.alert('Sign Up Successful', 'Please sign in using your credentials')
+        navigation.navigate('LoginScreen');
       } catch (error) {
         console.error(error);
       }
@@ -139,7 +96,7 @@ const NewUser = () => {
             <TextInput
               style={styles.email}
               defaultValue={email}
-              onChangeText={handleEmailChange}
+              onChangeText={(email) => {setEmail(email)}}
               textContentType="emailAddress"
               placeholder="Email Address"
               placeholderTextColor="grey"
@@ -150,8 +107,8 @@ const NewUser = () => {
               <TextInput
                 style={styles.password}
                 defaultValue={password}
-                onChangeText={handlePasswordChange}
-                placeholder="Enter Password"
+                onChangeText={(password) => {setPassword(password)}}
+                placeholder= "Password (Minimally 8 characters)"
                 placeholderTextColor="grey"
                 returnKeyType="next"
                 secureTextEntry={secureTextEntry()}
@@ -171,7 +128,7 @@ const NewUser = () => {
               <TextInput
                 style={styles.password}
                 defaultValue={confirmPassword}
-                onChangeText={handleConfirmPasswordChange}
+                onChangeText={(confirmPassword) => {setConfirmPassword(confirmPassword)}}
                 placeholder="Confirm Password"
                 placeholderTextColor="grey"
                 returnKeyType="go"
@@ -185,7 +142,7 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={firstName}
-                onChangeText={handleFirstNameChange}
+                onChangeText={(firstName) => {setFirstName(firstName)}}
                 textContentType="familyName"
                 placeholder="First Name"
                 placeholderTextColor="grey"
@@ -197,7 +154,7 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={lastName}
-                onChangeText={handleLastNameChange}
+                onChangeText={(lastName) => {setLastName(lastName)}}
                 textContentType="givenName"
                 placeholder="Last Name"
                 placeholderTextColor="grey"
@@ -208,8 +165,8 @@ const NewUser = () => {
             <View style={styles.passwordContainer}>
               <TextInput
                 style={styles.email}
-                defaultValue={username}
-                onChangeText={handleUsernameChange}
+                defaultValue={userName}
+                onChangeText={(userName) => {setUserName(userName)}}
                 textContentType="username"
                 placeholder="Username"
                 placeholderTextColor="grey"
@@ -221,7 +178,7 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={contactNumber}
-                onChangeText={handleContactNumberChange}
+                onChangeText={ (contactNumber) => {setContactNumber(contactNumber)} }
                 textContentType="telephoneNumber"
                 placeholder="Contact Number"
                 placeholderTextColor="grey"
@@ -233,7 +190,7 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={homeAddress}
-                onChangeText={handleHomeAddressChange}
+                onChangeText={ (homeAddress) => {setHomeAddress(homeAddress)}}
                 textContentType="fullStreetAddress"
                 placeholder="Home Address"
                 placeholderTextColor="grey"
@@ -245,7 +202,7 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={postalCode}
-                onChangeText={handlePostalCodeChange}
+                onChangeText={ (postalCode) => {setPostalCode(postalCode)}}
                 textContentType="postalCode"
                 placeholder="Postal Code"
                 placeholderTextColor="grey"

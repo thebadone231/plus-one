@@ -7,7 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/Login/Login';
 import NewUser from './screens/Login/NewUser';
 import ForgotPassword from './screens/Login/ForgotPassword';
-import Profile from './screens/Login/Profile';
+import Profile from './screens/Profile';
+import MainInterface from './screens/MainInterface';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,11 @@ export default function App() {
           name="Profile"
           options={{ headerShown: false }}
           component={Profile}
+        />
+        <Stack.Screen
+          name="MainInterface"
+          options={{ headerShown: false }}
+          component={MainInterface}
         />
       </Stack.Navigator>
     </NavigationContainer>
