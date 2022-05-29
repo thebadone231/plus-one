@@ -9,24 +9,16 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { handleForgotPassword } from '../../services/Firebase';
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
-
-  //Handles email input
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
-
-  //Handles forget password
-  const handleForgotPassword = async () => {
-    console.log('User Forget Password Successful.');
-  };
 
   return (
     <SafeAreaView>
@@ -58,7 +50,9 @@ const ForgotPassword = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={email}
-                onChangeText={(email) => {setEmail(email)}}
+                onChangeText={(email) => {
+                  setEmail(email);
+                }}
                 textContentType="emailAddress"
                 placeholder="Email Address"
                 placeholderTextColor="grey"
@@ -66,7 +60,13 @@ const ForgotPassword = () => {
                 returnKeyType="next"
               />
             </View>
-            <Pressable style={styles.button} onPress={handleForgotPassword}>
+            <Pressable
+              style={styles.button}
+              onPress={() => {
+                handleForgotPassword(email);
+                Alert.alert('Please check your email to reset password');
+              }}
+            >
               <Text style={{ fontSize: 20 }}>Change Password</Text>
             </Pressable>
           </View>

@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, doc, setDoc } from '@firebase/firestore'
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { getFirestore, collection, doc, setDoc } from '@firebase/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,7 +20,7 @@ if (!firebase.apps.length) {
 
 export const auth = getAuth();
 export const db = getFirestore();
-export const userCollectionRef = collection(db, "users");  
+export const userCollectionRef = collection(db, 'users');
 
 // sign in function
 export const handleSignIn = async (email, password) => {
@@ -49,35 +49,62 @@ export const handleSignout = async () => {
 };
 
 // signup function
-export const handleSignUp = async (email, password, firstName, lastName, userName, contactNumber, homeAddress, postalCode) => {
+export const handleSignUp = async (
+  email,
+  password,
+  firstName,
+  lastName,
+  userName,
+  contactNumber,
+  homeAddress,
+  postalCode
+) => {
   await firebase
     .auth()
-    .createUserWithEmailAndPassword(email, password, firstName, lastName, userName, contactNumber, homeAddress, postalCode)
+    .createUserWithEmailAndPassword(
+      email,
+      password,
+      firstName,
+      lastName,
+      userName,
+      contactNumber,
+      homeAddress,
+      postalCode
+    )
     .then(() => {
       setDoc(doc(userCollectionRef, auth.currentUser.email), {
-      userdata: {
-            email: email,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            userName: userName,
-            contactNumber: contactNumber,
-            homeAddress: homeAddress,
-            postalCode: postalCode,
-      }, 
-      requests: {
-        current: {},
-        taken: {},
-        completed: {},
-        cancelled: {},
-        expired: {},
-      }
+        userdata: {
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          userName: userName,
+          contactNumber: contactNumber,
+          homeAddress: homeAddress,
+          postalCode: postalCode,
+        },
+        requests: {
+          current: {},
+          taken: {},
+          completed: {},
+          cancelled: {},
+          expired: {},
+        },
       });
       console.log(firebase.auth().currentUser);
     })
     .catch((error) => {
       console.error(error);
     });
+};
+
+// Reset password function
+export const handleForgotPassword = async (email) => {
+  try {
+    await firebase.auth().sendPasswordResetEmail(email);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 /* database structuring:
