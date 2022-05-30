@@ -139,10 +139,15 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+- [ ] Navigation across different screens
+Users are able to navigate to different screens by clicking on the corresponding icons or words. This is made possible using the onPress function that calls the backend routing functions when users interact with these pressables.
+
+- [ ] Secure Authentication Interface
+Before users are allowed access to the services in the application, they will be required to authenticate their identity by keying in the email and password they registered with the application. This information submitted by the user will be cross referenced with that stored in the Firebase authentication server. Once Firebase has ascertained that the veracity of the password provided, users will be directed to the main interface of the application.
+
+- [ ] Writing data to Firebase database
+New users will be required to register themselves via the “New User” screen in the application. After all necessary fields have been filled up correctly, this information will be written in the Firebase database. This information will be retrieved and rendered in the main interface each time the user logs in to the application. 
+
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
