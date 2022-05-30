@@ -1,8 +1,17 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Pressable} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Pressable,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { handleSignIn} from '../../services/Firebase';
+import { handleSignIn } from '../../services/Firebase';
+import { Alert } from 'react-native';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -21,20 +30,21 @@ const LoginScreen = () => {
 
   const secureTextEntry = () => {
     return visible.name === 'eye-off';
-};
+  };
 
   const handleSignInClick = async () => {
     if (email === '' || password === '') {
-      console.log('invalid credentials')
+      console.log('invalid credentials');
     } else {
-    try {
-          await handleSignIn(email, password);
-          navigation.navigate('MainInterface');
-        } catch (error) {
+      try {
+        await handleSignIn(email, password);
+        navigation.navigate('MainInterface');
+      } catch (error) {
+        Alert.alert('Invalid email or password');
         console.error(error);
       }
-    };
-  }
+    }
+  };
 
   return (
     <View style={styles.background}>
@@ -52,7 +62,9 @@ const LoginScreen = () => {
             style={styles.inputBox}
             placeholder="Email"
             value={email}
-            onChangeText={(email) => {setEmail(email)}}
+            onChangeText={(email) => {
+              setEmail(email);
+            }}
             returnKeyType="next"
             defaultValue={email}
           />
@@ -66,7 +78,9 @@ const LoginScreen = () => {
           <TextInput
             style={styles.inputBox}
             defaultValue={password}
-            onChangeText={(password) => {setPassword(password)}}
+            onChangeText={(password) => {
+              setPassword(password);
+            }}
             placeholder="Password"
             placeholderTextColor="grey"
             returnKeyType="go"

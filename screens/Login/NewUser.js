@@ -82,18 +82,16 @@ const NewUser = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.header}>
-            <View style={styles.iconRow}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('LoginScreen')}
-              >
-                <Image
-                  style={styles.backImage}
-                  source={require('../../assets/backButton.png')}
-                />
-              </TouchableOpacity>
-              <Text style={styles.mainLogo}>+1</Text>
-            </View>
+          <View style={styles.logoContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('LoginScreen')}
+            >
+              <Image
+                style={styles.backImage}
+                source={require('../../assets/backButton.png')}
+              />
+            </TouchableOpacity>
+            <Text style={styles.mainLogo}> +1 </Text>
           </View>
           <View style={styles.headerContainer}>
             <Text
@@ -254,8 +252,7 @@ const NewUser = () => {
 
 const styles = StyleSheet.create({
   mainLogo: {
-    marginLeft: 120,
-    marginTop: 4,
+    marginLeft: 90,
     fontSize: 50,
     fontWeight: '800',
   },
@@ -265,8 +262,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '50%',
     paddingTop: StatusBar.currentHeight,
-    marginBottom: 20,
-    marginTop: -70,
     flexDirection: 'row',
   },
   container: {
@@ -297,6 +292,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     top: -40,
+    flex: 8,
   },
   email: {
     width: '100%',
@@ -333,9 +329,10 @@ const styles = StyleSheet.create({
     top: 20,
   },
   backImage: {
-    fontSize: 40,
-    height: 44,
-    width: 40,
+    width: 20,
+    height: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
 
   button: {
@@ -348,20 +345,6 @@ const styles = StyleSheet.create({
     top: 30,
     padding: 10,
     marginBottom: 20,
-  },
-  iconRow: {
-    height: 44,
-    flexDirection: 'row',
-    flex: 1,
-    marginRight: 170,
-    marginLeft: 11,
-    marginTop: 10,
-  },
-  header: {
-    width: 375,
-    height: 65,
-    flexDirection: 'row',
-    marginTop: 44,
   },
 });
 
