@@ -12,6 +12,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { handleSignIn } from '../../services/Firebase';
 import { Alert } from 'react-native';
+import { auth } from '../../services/Firebase';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
