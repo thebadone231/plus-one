@@ -103,7 +103,9 @@ To get a local copy up and running follow these simple example steps.
 
 <div align="center">
 <img src="assets/Signup page 1.jpg" alt="Signup page 1" width="300" height="500">
-<img src="assets/Signup page 1.jpg" alt="Signup page 2" width="300" height="500">
+<img src="assets/Signup page 2.jpg" alt="Signup page 2" width="300" height="500">
+<img src="assets/Signup page 3.jpg" alt="Signup page 3" width="300" height="500">
+<img src="assets/Signup page 4.jpg" alt="Signup page 4" width="300" height="500">
 </div>
 <br />
 
@@ -111,6 +113,7 @@ To get a local copy up and running follow these simple example steps.
 
 <div align="center">
 <img src="assets/Forgot password page 1.jpg" alt="Forgot password page 1" width="300" height="500">
+<img src="assets/Forgot password page 2.jpg" alt="Forgot password page 2" width="300" height="500">
 </div>
 <br />
 
