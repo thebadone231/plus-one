@@ -373,36 +373,3 @@ const styles = StyleSheet.create({
 });
 
 export default NewUser;
-
-import React, { Component } from 'react';
-import { View } from 'react-native';
-
-// export default class MyLayout extends Component {
-//   render() {
-//     return (
-//       <View style={{
-//         flex: 1,
-//         width: 500,
-//         height: 500,
-//       }}>
-//         <View style={{
-//           flex: 1,
-//           width: 100,
-//           height: 100,
-//           flexDirection: 'count',
-//         }} />
-//         <View style={{
-//           flex: 1,
-//           width: 100,
-//           height: 100,
-//           flexGrow: 1,
-//         }} />
-//         <View style={{
-//           flex: 1,
-//           width: 100,
-//           height: 100,
-//         }} />
-//       </View>
-//     );
-//   }
-// };
