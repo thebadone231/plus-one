@@ -6,6 +6,7 @@ import {
   View,
   Image,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { handleSignout, auth, userCollectionRef } from '../services/Firebase';
@@ -35,6 +36,7 @@ const MainInterface = () => {
           style={styles.button}
           onPress={() => {
             handleSignout();
+            Alert.alert('Signed out successfully!');
             navigation.navigate('LoginScreen');
             console.log('user signed out');
           }}

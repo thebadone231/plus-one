@@ -121,6 +121,7 @@ To get a local copy up and running follow these simple example steps.
 
 <div align="center">
 <img src="assets/Holding page 1.jpg" alt="Holding page 1" width="300" height="500">
+<img src="assets/Holding page 2.jpg" alt="Holding page 2" width="300" height="500">
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
