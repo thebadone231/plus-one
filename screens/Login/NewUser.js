@@ -82,40 +82,19 @@ const NewUser = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <View
-            style={{
-              flex: 1,
-              width: '20%',
-              height: '20%',
-              flexDirection: 'count',
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => navigation.navigate('LoginScreen')}
-            >
-              <Image
-                style={styles.backImage}
-                source={require('../../assets/backButton.png')}
-              />
-            </TouchableOpacity>
+          <View style={styles.header}>
+            <View style={styles.iconRow}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('LoginScreen')}
+              >
+                <Image
+                  style={styles.backImage}
+                  source={require('../../assets/backButton.png')}
+                />
+              </TouchableOpacity>
+              <Text style={styles.mainLogo}>+1</Text>
+            </View>
           </View>
-          <View
-            style={{
-              flex: 1,
-              width: '60%',
-              height: '60%',
-              flexGrow: 1,
-            }}
-          >
-            <Text> +1 </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              width: '20%',
-              height: '20%',
-            }}
-          ></View>
           <View style={styles.headerContainer}>
             <Text
               style={{
@@ -275,7 +254,8 @@ const NewUser = () => {
 
 const styles = StyleSheet.create({
   mainLogo: {
-    marginLeft: 90,
+    marginLeft: 120,
+    marginTop: 4,
     fontSize: 50,
     fontWeight: '800',
   },
@@ -353,10 +333,9 @@ const styles = StyleSheet.create({
     top: 20,
   },
   backImage: {
-    width: 20,
-    height: 20,
-    marginLeft: 20,
-    marginRight: 20,
+    fontSize: 40,
+    height: 44,
+    width: 40,
   },
 
   button: {
@@ -369,6 +348,20 @@ const styles = StyleSheet.create({
     top: 30,
     padding: 10,
     marginBottom: 20,
+  },
+  iconRow: {
+    height: 44,
+    flexDirection: 'row',
+    flex: 1,
+    marginRight: 170,
+    marginLeft: 11,
+    marginTop: 10,
+  },
+  header: {
+    width: 375,
+    height: 65,
+    flexDirection: 'row',
+    marginTop: 44,
   },
 });
 
