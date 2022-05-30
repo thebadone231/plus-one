@@ -41,6 +41,7 @@ const LoginScreen = () => {
         await handleSignIn(email, password);
         if (auth.currentUser === null) {
           Alert.alert('Invalid Login Details!');
+          navigation.navigate('LoginScreen');
         } else {
           navigation.navigate('MainInterface');
         }
