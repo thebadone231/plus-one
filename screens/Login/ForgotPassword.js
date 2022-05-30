@@ -38,7 +38,7 @@ const ForgotPassword = () => {
           <View style={styles.headerContainer}>
             <Text
               style={{
-                fontSize: 30,
+                fontSize: 27,
                 color: 'black',
               }}
             >

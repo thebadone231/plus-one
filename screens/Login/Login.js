@@ -38,10 +38,12 @@ const LoginScreen = () => {
     } else {
       try {
         await handleSignIn(email, password);
-        navigation.navigate('MainInterface');
+        if (auth.currentUser === null) {
+          Alert.alert('Invalid Login Details!');
+        } else {
+          navigation.navigate('MainInterface');
+        }
       } catch (error) {
-        navigation.navigate('LoginScreen');
-        Alert.alert('Invalid email or password');
         console.error(error);
       }
     }
