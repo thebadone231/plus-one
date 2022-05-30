@@ -38,7 +38,7 @@ const ForgotPassword = () => {
           <View style={styles.headerContainer}>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 30,
                 color: 'black',
               }}
             >
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '80%',
     height: 50,
-    marginBottom: 40,
+    marginBottom: 70,
     //top: -20,
   },
   form: {
