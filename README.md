@@ -148,7 +148,15 @@ Before users are allowed access to the services in the application, they will be
 New users will be required to register themselves via the “New User” screen in the application. After all necessary fields have been filled up correctly, this information will be written in the Firebase database. This information will be retrieved and rendered in the main interface each time the user logs in to the application. 
 
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+## Challenges
+
+#### 1.	Reading information retrieved from the database
+While information within each query could be processed using basic knowledge on data structures, custom methods created for Firebase provided a more efficient alternative that was also much easier to understand. Hence, a substantial amount of time was spent on experimenting with different methods to investigate how to best process this information so that it can utilised for algorithms we intend to implement in future.
+
+#### 2.	Structuring the database
+Deciding what information is necessary, including those required for features yet to be implemented, was the first issue we had to tackle. We recognise that how the data is structured will impact how we read and process the information in future. Hence, a significant amount of time was dedicated towards determining how to structure this information in the most logical and efficient manner. In addition, we also had to devise workarounds in response to the restrictions imposed by how Firebase databases are organised.  
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
