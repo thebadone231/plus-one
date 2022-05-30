@@ -87,9 +87,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '50%',
-    paddingTop: StatusBar.currentHeight,
-    marginBottom: 20,
-    marginTop: -70,
     flexDirection: 'row',
   },
   container: {
