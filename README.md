@@ -40,7 +40,6 @@
 </details>
 
 <br />
-<br />
 <div id="#about-the-project"></div>
 
 ## About The Project
