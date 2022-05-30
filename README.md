@@ -155,6 +155,10 @@ While information within each query could be processed using basic knowledge on 
 
 Deciding what information is necessary, including those required for features yet to be implemented, was the first issue we had to tackle. We recognise that how the data is structured will impact how we read and process the information in future. Hence, a significant amount of time was dedicated towards determining how to structure this information in the most logical and efficient manner. In addition, we also had to devise workarounds in response to the restrictions imposed by how Firebase databases are organised.
 
+### 3. Rendering alert component
+
+Alerts are incorporated as part of the UI design as they can serve as important visual cues to guide users around the application. While these alerts could be rendered in expo, they could not be rendered when deployed in heroku. We are in the process of resolving this issue. Please refer to the screenshots above on the alerts that are already implemented in the application. 
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="#acknowledgements"></div>
