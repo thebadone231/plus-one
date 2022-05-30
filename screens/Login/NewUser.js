@@ -16,7 +16,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 import { handleSignUp } from '../../services/Firebase';
 
-
 const NewUser = () => {
   const navigation = useNavigation();
 
@@ -42,7 +41,7 @@ const NewUser = () => {
 
   //Handles password visibility when the eye icon is pressed
   const secureTextEntry = () => {
-      return visible.name === 'eye-off';
+    return visible.name === 'eye-off';
   };
 
   //Handles sign up
@@ -50,16 +49,28 @@ const NewUser = () => {
     if (
       email === '' ||
       password === '' ||
-      confirmPassword === '' || 
+      confirmPassword === '' ||
       password !== confirmPassword
     ) {
-      Alert.alert('Invalid credentials')
+      Alert.alert('Invalid credentials');
     } else if (password.length < 8) {
-      Alert.alert('the minimum length of password is 8')
+      Alert.alert('the minimum length of password is 8');
     } else {
       try {
-        await handleSignUp(email, password, firstName, lastName, userName, contactNumber, homeAddress, postalCode);
-        Alert.alert('Sign Up Successful', 'Please sign in using your credentials')
+        await handleSignUp(
+          email,
+          password,
+          firstName,
+          lastName,
+          userName,
+          contactNumber,
+          homeAddress,
+          postalCode
+        );
+        Alert.alert(
+          'Sign Up Successful',
+          'Please sign in using your credentials'
+        );
         navigation.navigate('LoginScreen');
       } catch (error) {
         console.error(error);
@@ -71,7 +82,14 @@ const NewUser = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.logoContainer}>
+          <View
+            style={{
+              flex: 1,
+              width: '20%',
+              height: '20%',
+              flexDirection: 'count',
+            }}
+          >
             <TouchableOpacity
               onPress={() => navigation.navigate('LoginScreen')}
             >
@@ -80,8 +98,24 @@ const NewUser = () => {
                 source={require('../../assets/backButton.png')}
               />
             </TouchableOpacity>
-            <Text style={styles.mainLogo}> +1 </Text>
           </View>
+          <View
+            style={{
+              flex: 1,
+              width: '60%',
+              height: '60%',
+              flexGrow: 1,
+            }}
+          >
+            <Text> +1 </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              width: '20%',
+              height: '20%',
+            }}
+          ></View>
           <View style={styles.headerContainer}>
             <Text
               style={{
@@ -96,7 +130,9 @@ const NewUser = () => {
             <TextInput
               style={styles.email}
               defaultValue={email}
-              onChangeText={(email) => {setEmail(email)}}
+              onChangeText={(email) => {
+                setEmail(email);
+              }}
               textContentType="emailAddress"
               placeholder="Email Address"
               placeholderTextColor="grey"
@@ -107,8 +143,10 @@ const NewUser = () => {
               <TextInput
                 style={styles.password}
                 defaultValue={password}
-                onChangeText={(password) => {setPassword(password)}}
-                placeholder= "Password (Minimally 8 characters)"
+                onChangeText={(password) => {
+                  setPassword(password);
+                }}
+                placeholder="Password (Minimally 8 characters)"
                 placeholderTextColor="grey"
                 returnKeyType="next"
                 secureTextEntry={secureTextEntry()}
@@ -128,7 +166,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.password}
                 defaultValue={confirmPassword}
-                onChangeText={(confirmPassword) => {setConfirmPassword(confirmPassword)}}
+                onChangeText={(confirmPassword) => {
+                  setConfirmPassword(confirmPassword);
+                }}
                 placeholder="Confirm Password"
                 placeholderTextColor="grey"
                 returnKeyType="go"
@@ -142,7 +182,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={firstName}
-                onChangeText={(firstName) => {setFirstName(firstName)}}
+                onChangeText={(firstName) => {
+                  setFirstName(firstName);
+                }}
                 textContentType="familyName"
                 placeholder="First Name"
                 placeholderTextColor="grey"
@@ -154,7 +196,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={lastName}
-                onChangeText={(lastName) => {setLastName(lastName)}}
+                onChangeText={(lastName) => {
+                  setLastName(lastName);
+                }}
                 textContentType="givenName"
                 placeholder="Last Name"
                 placeholderTextColor="grey"
@@ -166,7 +210,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={userName}
-                onChangeText={(userName) => {setUserName(userName)}}
+                onChangeText={(userName) => {
+                  setUserName(userName);
+                }}
                 textContentType="username"
                 placeholder="Username"
                 placeholderTextColor="grey"
@@ -178,7 +224,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={contactNumber}
-                onChangeText={ (contactNumber) => {setContactNumber(contactNumber)} }
+                onChangeText={(contactNumber) => {
+                  setContactNumber(contactNumber);
+                }}
                 textContentType="telephoneNumber"
                 placeholder="Contact Number"
                 placeholderTextColor="grey"
@@ -190,7 +238,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={homeAddress}
-                onChangeText={ (homeAddress) => {setHomeAddress(homeAddress)}}
+                onChangeText={(homeAddress) => {
+                  setHomeAddress(homeAddress);
+                }}
                 textContentType="fullStreetAddress"
                 placeholder="Home Address"
                 placeholderTextColor="grey"
@@ -202,7 +252,9 @@ const NewUser = () => {
               <TextInput
                 style={styles.email}
                 defaultValue={postalCode}
-                onChangeText={ (postalCode) => {setPostalCode(postalCode)}}
+                onChangeText={(postalCode) => {
+                  setPostalCode(postalCode);
+                }}
                 textContentType="postalCode"
                 placeholder="Postal Code"
                 placeholderTextColor="grey"
@@ -321,3 +373,36 @@ const styles = StyleSheet.create({
 });
 
 export default NewUser;
+
+import React, { Component } from 'react';
+import { View } from 'react-native';
+
+// export default class MyLayout extends Component {
+//   render() {
+//     return (
+//       <View style={{
+//         flex: 1,
+//         width: 500,
+//         height: 500,
+//       }}>
+//         <View style={{
+//           flex: 1,
+//           width: 100,
+//           height: 100,
+//           flexDirection: 'count',
+//         }} />
+//         <View style={{
+//           flex: 1,
+//           width: 100,
+//           height: 100,
+//           flexGrow: 1,
+//         }} />
+//         <View style={{
+//           flex: 1,
+//           width: 100,
+//           height: 100,
+//         }} />
+//       </View>
+//     );
+//   }
+// };
