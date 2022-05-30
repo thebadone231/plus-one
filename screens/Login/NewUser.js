@@ -15,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 import { handleSignUp } from '../../services/Firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NewUser = () => {
   const navigation = useNavigation();
