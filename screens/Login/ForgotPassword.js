@@ -38,11 +38,11 @@ const ForgotPassword = () => {
           <View style={styles.headerContainer}>
             <Text
               style={{
-                fontSize: 27,
+                fontSize: 30,
                 color: 'black',
               }}
             >
-              Key in your email address
+              Key in your email
             </Text>
           </View>
           <View style={styles.form}>

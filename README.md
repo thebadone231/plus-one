@@ -90,22 +90,42 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
-## Login page
+### Login page
 
-## Signup page
+<div align="center">
+<img src="assets/Login page 1.jpg" alt="Login page 1" width="300" height="500">
+<img src="assets/Login page 2.jpg" alt="Login page 2" width="300" height="500">
+<img src="assets/Login page 3.jpg" alt="Login page 3" width="300" height="500">
+<img src="assets/Login page 4.jpg" alt="Login page 4" width="300" height="500">
+</div>
+<br />
 
-## Forget password page
+### Signup page
 
-## Holding page to be replaced by main interface
+<div align="center">
+<img src="assets/Signup page 1.jpg" alt="Signup page 1" width="300" height="500">
+<img src="assets/Signup page 1.jpg" alt="Signup page 2" width="300" height="500">
+</div>
+<br />
+
+### Forget password page
+
+<div align="center">
+<img src="assets/Forgot password page 1.jpg" alt="Forgot password page 1" width="300" height="500">
+</div>
+<br />
+
+### Holding page to be replaced by main interface
+
+<div align="center">
+<img src="assets/Holding page 1.jpg" alt="Holding page 1" width="300" height="500">
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ROADMAP -->
 <div id="#roadmap"></div>
 
 ## Roadmap
-
-<br />
 
 ### 1. Navigation across different screens
 
@@ -123,8 +143,6 @@ New users will be required to register themselves via the “New User” screen 
 <br />
 
 ## Challenges
-
-<br />
 
 ### 1. Reading information retrieved from the database
 

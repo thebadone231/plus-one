@@ -54,7 +54,7 @@ const NewUser = () => {
     ) {
       Alert.alert('Invalid credentials');
     } else if (password.length < 8) {
-      Alert.alert('the minimum length of password is 8');
+      Alert.alert('Minimum 8 characters for password');
     } else {
       try {
         await handleSignUp(
