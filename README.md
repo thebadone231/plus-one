@@ -138,7 +138,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-1. Navigation across different screens
+###1. Navigation across different screens
 Users are able to navigate to different screens by clicking on the corresponding icons or words. This is made possible using the onPress function that calls the backend routing functions when users interact with these pressables.
 
 - [ ] Secure Authentication Interface
