@@ -8,7 +8,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build": "expo build:web"
+    "build": "expo build:web",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@react-native-firebase/app": "^14.9.4",
@@ -28,7 +30,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "expo-cli": "^4.3.0"
+    "expo-cli": "^4.3.0",
+    "gh-pages": "^4.0.0"
   },
   "private": true
 }
