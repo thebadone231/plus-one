@@ -251,95 +251,93 @@ const NewUser = () => {
               <Text style={{ fontSize: 20 }}>SIGN UP</Text>
             </Pressable>
           </View>
+          <View>
+            <AwesomeAlert
+              style={styles.alert}
+              show={emptyEmailAlert}
+              title="Error"
+              message="Email cannot be empty"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={() => {
+                setEmptyEmailAlert(false);
+              }}
+            />
+          </View>
+          <View>
+            <AwesomeAlert
+              show={emptyPasswordAlert}
+              title="Error"
+              message="Password cannot be empty"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={() => {
+                setEmptyPasswordAlert(false);
+              }}
+            />
+          </View>
+          <View>
+            <AwesomeAlert
+              show={passwordMismatchAlert}
+              title="Error"
+              message="Both passwords do not match"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={() => {
+                setPasswordMismatchAlert(false);
+              }}
+            />
+          </View>
+          <View>
+            <AwesomeAlert
+              show={passwordLengthAlert}
+              title="Error"
+              message="Password must be longer than 8 characters"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={() => {
+                setPasswordLengthAlert(false);
+              }}
+            />
+          </View>
+          <View>
+            <AwesomeAlert
+              show={successAlert}
+              title="Registration successful!"
+              message="Please login with your email and password"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={() => {
+                setSuccessAlert(false);
+              }}
+            />
+          </View>
+          <View>
+            <AwesomeAlert
+              show={failureAlert}
+              title="Registration unsuccessful!"
+              message="Please check your personal particulars again"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={() => {
+                setFailureAlert(false);
+              }}
+            />
+          </View>
         </View>
       </ScrollView>
-      <View style={styles.container}>
-        <View>
-          <AwesomeAlert
-            style={styles.alert}
-            show={emptyEmailAlert}
-            title="Error"
-            message="Email cannot be empty"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setEmptyEmailAlert(false);
-            }}
-          />
-        </View>
-        <View>
-          <AwesomeAlert
-            show={emptyPasswordAlert}
-            title="Error"
-            message="Password cannot be empty"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setEmptyPasswordAlert(false);
-            }}
-          />
-        </View>
-        <View>
-          <AwesomeAlert
-            show={passwordMismatchAlert}
-            title="Error"
-            message="Both passwords do not match"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setPasswordMismatchAlert(false);
-            }}
-          />
-        </View>
-        <View>
-          <AwesomeAlert
-            show={passwordLengthAlert}
-            title="Error"
-            message="Password must be longer than 8 characters"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setPasswordLengthAlert(false);
-            }}
-          />
-        </View>
-        <View>
-          <AwesomeAlert
-            show={successAlert}
-            title="Registration successful!"
-            message="Please login with your email and password"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setSuccessAlert(false);
-            }}
-          />
-        </View>
-        <View>
-          <AwesomeAlert
-            show={failureAlert}
-            title="Registration unsuccessful!"
-            message="Please check your personal particulars again"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setFailureAlert(false);
-            }}
-          />
-        </View>
-      </View>
     </SafeAreaView>
   );
 };
