@@ -69,19 +69,19 @@ const ForgotPassword = () => {
             >
               <Text style={{ fontSize: 20 }}>Change Password</Text>
             </Pressable>
-            <AwesomeAlert
-              show={alert}
-              title="Email Sent"
-              message="Check your email for more details"
-              closeOnTouchOutside={true}
-              closeOnHardwareBackPress={false}
-              showCancelButton={true}
-              cancelText="Close"
-              onCancelPressed={() => {
-                setAlert(false);
-              }}
-            />
           </View>
+          <AwesomeAlert
+            show={alert}
+            title="Email Sent"
+            message="Check your email for more details"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showCancelButton={true}
+            cancelText="Close"
+            onCancelPressed={() => {
+              setAlert(false);
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
