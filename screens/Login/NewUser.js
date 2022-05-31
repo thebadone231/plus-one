@@ -253,6 +253,7 @@ const NewUser = () => {
             <View>
               <View>
                 <AwesomeAlert
+                  style={styles.alert}
                   show={emptyEmailAlert}
                   title="Error"
                   message="Email cannot be empty"
@@ -437,6 +438,14 @@ const styles = StyleSheet.create({
     top: 30,
     padding: 10,
     marginBottom: 20,
+  },
+  alert: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
   },
 });
 
