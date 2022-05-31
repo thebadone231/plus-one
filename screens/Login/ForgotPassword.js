@@ -9,16 +9,22 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { handleForgotPassword } from '../../services/Firebase';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
-
+  const [alert, setAlert] = useState(false);
   const [email, setEmail] = useState('');
+  const showAlert = () => {
+    setAlert(true);
+  };
+  const hideAlert = () => {
+    setAlert(false);
+  };
 
   return (
     <SafeAreaView>
@@ -64,11 +70,21 @@ const ForgotPassword = () => {
               style={styles.button}
               onPress={() => {
                 handleForgotPassword(email);
-                Alert.alert('Please check your email to reset password');
+                setAlert(true);
               }}
             >
               <Text style={{ fontSize: 20 }}>Change Password</Text>
             </Pressable>
+            <AwesomeAlert
+              show={alert}
+              title="Email Sent"
+              message="Check your email for more details"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              cancelText="Close"
+              onCancelPressed={hideAlert}
+            />
           </View>
         </View>
       </ScrollView>
