@@ -109,18 +109,6 @@ const LoginScreen = () => {
               source={require('../../assets/login-arrow.png')}
             />
           </Pressable>
-          <AwesomeAlert
-            show={alert}
-            title="Login Unsuccessful"
-            message="Invalid Login Details"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            cancelText="Close"
-            onCancelPressed={() => {
-              setAlert(false);
-            }}
-          />
         </View>
       </View>
 
@@ -151,6 +139,19 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <AwesomeAlert
+        show={alert}
+        title="Login Unsuccessful"
+        message="Invalid Login Details"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={true}
+        cancelText="Close"
+        onCancelPressed={() => {
+          setAlert(false);
+        }}
+      />
     </View>
   );
 };
