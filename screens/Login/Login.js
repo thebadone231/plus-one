@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { handleSignIn } from '../../services/Firebase';
-import { Alert } from 'react-native';
 import { auth } from '../../services/Firebase';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [visible, setVisibility] = useState({ name: 'eye-off' });
+  const [alert, setAlert] = useState(false);
 
   const navigation = useNavigation();
 
@@ -35,12 +36,13 @@ const LoginScreen = () => {
 
   const handleSignInClick = async () => {
     if (email === '' || password === '') {
+      setAlert(true);
       console.log('invalid credentials');
     } else {
       try {
         await handleSignIn(email, password);
         if (auth.currentUser === null) {
-          Alert.alert('Invalid Login Details!');
+          setAlert(true);
           navigation.navigate('LoginScreen');
         } else {
           navigation.navigate('MainInterface');
@@ -107,6 +109,18 @@ const LoginScreen = () => {
               source={require('../../assets/login-arrow.png')}
             />
           </Pressable>
+          <AwesomeAlert
+            show={alert}
+            title="Login Unsuccessful"
+            message="Invalid Login Details"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showCancelButton={true}
+            cancelText="Close"
+            onCancelPressed={() => {
+              setAlert(false);
+            }}
+          />
         </View>
       </View>
 

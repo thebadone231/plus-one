@@ -19,12 +19,6 @@ const ForgotPassword = () => {
   const navigation = useNavigation();
   const [alert, setAlert] = useState(false);
   const [email, setEmail] = useState('');
-  const showAlert = () => {
-    setAlert(true);
-  };
-  const hideAlert = () => {
-    setAlert(false);
-  };
 
   return (
     <SafeAreaView>
@@ -83,7 +77,9 @@ const ForgotPassword = () => {
               closeOnHardwareBackPress={false}
               showCancelButton={true}
               cancelText="Close"
-              onCancelPressed={hideAlert}
+              onCancelPressed={() => {
+                setAlert(false);
+              }}
             />
           </View>
         </View>

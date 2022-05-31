@@ -9,12 +9,12 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
-import { handleSignUp } from '../../services/Firebase';
+import { handleSignUp, auth } from '../../services/Firebase';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const NewUser = () => {
   const navigation = useNavigation();
@@ -29,6 +29,12 @@ const NewUser = () => {
   const [contactNumber, setContactNumber] = useState('');
   const [homeAddress, setHomeAddress] = useState('');
   const [postalCode, setPostalCode] = useState('');
+  const [emptyEmailAlert, setEmptyEmailAlert] = useState(false);
+  const [emptyPasswordAlert, setEmptyPasswordAlert] = useState(false);
+  const [passwordMismatchAlert, setPasswordMismatchAlert] = useState(false);
+  const [passwordLengthAlert, setPasswordLengthAlert] = useState(false);
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [failureAlert, setFailureAlert] = useState(false);
 
   //Toggles the eye icon to show the password
   const ToggleVisibilty = () => {
@@ -46,15 +52,14 @@ const NewUser = () => {
 
   //Handles sign up
   const handleSubmit = async () => {
-    if (
-      email === '' ||
-      password === '' ||
-      confirmPassword === '' ||
-      password !== confirmPassword
-    ) {
-      Alert.alert('Invalid credentials');
+    if (email === '') {
+      setEmptyEmailAlert(true);
+    } else if (password === '') {
+      setEmptyPasswordAlert(true);
+    } else if (password !== confirmPassword) {
+      setPasswordMismatchAlert(true);
     } else if (password.length < 8) {
-      Alert.alert('Minimum 8 characters for password');
+      setPasswordLengthAlert(true);
     } else {
       try {
         await handleSignUp(
@@ -67,11 +72,13 @@ const NewUser = () => {
           homeAddress,
           postalCode
         );
-        Alert.alert(
-          'Sign Up Successful',
-          'Please sign in using your credentials'
-        );
-        navigation.navigate('LoginScreen');
+        if (auth.currentUser === null) {
+          setFailureAlert(true);
+          navigation.navigate('LoginScreen');
+        } else {
+          setSuccessAlert(true);
+          navigation.navigate('LoginScreen');
+        }
       } catch (error) {
         console.error(error);
       }
@@ -123,7 +130,7 @@ const NewUser = () => {
                 onChangeText={(password) => {
                   setPassword(password);
                 }}
-                placeholder="Password (Minimally 8 characters)"
+                placeholder="Password (Min 8 characters)"
                 placeholderTextColor="grey"
                 returnKeyType="next"
                 secureTextEntry={secureTextEntry()}
@@ -243,6 +250,92 @@ const NewUser = () => {
             <Pressable style={styles.button} onPress={handleSubmit}>
               <Text style={{ fontSize: 20 }}>SIGN UP</Text>
             </Pressable>
+            <View>
+              <View>
+                <AwesomeAlert
+                  show={emptyEmailAlert}
+                  title="Error"
+                  message="Email cannot be empty"
+                  closeOnTouchOutside={true}
+                  closeOnHardwareBackPress={false}
+                  showCancelButton={true}
+                  cancelText="Close"
+                  onCancelPressed={() => {
+                    setEmptyEmailAlert(false);
+                  }}
+                />
+              </View>
+              <View>
+                <AwesomeAlert
+                  show={emptyPasswordAlert}
+                  title="Error"
+                  message="Password cannot be empty"
+                  closeOnTouchOutside={true}
+                  closeOnHardwareBackPress={false}
+                  showCancelButton={true}
+                  cancelText="Close"
+                  onCancelPressed={() => {
+                    setEmptyPasswordAlert(false);
+                  }}
+                />
+              </View>
+              <View>
+                <AwesomeAlert
+                  show={passwordMismatchAlert}
+                  title="Error"
+                  message="Both passwords do not match"
+                  closeOnTouchOutside={true}
+                  closeOnHardwareBackPress={false}
+                  showCancelButton={true}
+                  cancelText="Close"
+                  onCancelPressed={() => {
+                    setPasswordMismatchAlert(false);
+                  }}
+                />
+              </View>
+              <View>
+                <AwesomeAlert
+                  show={passwordLengthAlert}
+                  title="Error"
+                  message="Password must be longer than 8 characters"
+                  closeOnTouchOutside={true}
+                  closeOnHardwareBackPress={false}
+                  showCancelButton={true}
+                  cancelText="Close"
+                  onCancelPressed={() => {
+                    setPasswordLengthAlert(false);
+                  }}
+                />
+              </View>
+              <View>
+                <AwesomeAlert
+                  show={successAlert}
+                  title="Registration successful!"
+                  message="Please login with your email and password"
+                  closeOnTouchOutside={true}
+                  closeOnHardwareBackPress={false}
+                  showCancelButton={true}
+                  cancelText="Close"
+                  onCancelPressed={() => {
+                    setSuccessAlert(false);
+                  }}
+                />
+              </View>
+              <View>
+                <AwesomeAlert
+                  show={failureAlert}
+                  title="Registration unsuccessful!"
+                  message="Please check your personal particulars again"
+                  closeOnTouchOutside={true}
+                  closeOnHardwareBackPress={false}
+                  showCancelButton={true}
+                  cancelText="Close"
+                  onCancelPressed={() => {
+                    setFailureAlert(false);
+                  }}
+                />
+              </View>
+            </View>
           </View>
         </View>
       </ScrollView>
