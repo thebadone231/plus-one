@@ -74,10 +74,8 @@ const NewUser = () => {
         );
         if (auth.currentUser === null) {
           setFailureAlert(true);
-          navigation.navigate('LoginScreen');
         } else {
           setSuccessAlert(true);
-          navigation.navigate('LoginScreen');
         }
       } catch (error) {
         console.error(error);
@@ -309,6 +307,7 @@ const NewUser = () => {
             cancelText="Close"
             onCancelPressed={() => {
               setSuccessAlert(false);
+              navigation.navigate('LoginScreen');
             }}
           />
           <AwesomeAlert
