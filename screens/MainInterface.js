@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  StatusBar,
-  Alert,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image, StatusBar, Alert, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { handleSignout, auth, userCollectionRef } from '../services/Firebase';
 import { setDoc, doc } from 'firebase/firestore';
@@ -44,15 +36,15 @@ const MainInterface = () => {
           <Text style={{ fontSize: 20 }}>Sign out</Text>
         </Pressable>
       </View>
-      <View
-        style={[styles.botNavBar, { flexGrow: 1 }]}
-        classname="bottom navigation bar"
-      >
-        <View style={{ justifyContent: 'center' }}>
-          <Image />
-          <Text></Text>
+      <View style={{flex:3, backgroundColor: '#908830'}}>
+          <View style={[styles.botNavBar, { flexGrow: 1 }]} classname="bottom navigation bar">
+            <View style={{ justifyContent: 'center' }}>
+              <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
+                <Text>Nav bar</Text>
+              </TouchableOpacity>
+            </View>
+          </View> 
         </View>
-      </View>
     </View>
   );
 };
