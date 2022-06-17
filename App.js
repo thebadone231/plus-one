@@ -9,6 +9,8 @@ import NewUser from './screens/Login/NewUser';
 import ForgotPassword from './screens/Login/ForgotPassword';
 import Profile from './screens/Profile';
 import MainInterface from './screens/MainInterface';
+import UserHistory from './screens/UserHistory';
+import FAQ from './screens/FAQ';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,14 +34,24 @@ export default function App() {
           component={ForgotPassword}
         />
         <Stack.Screen
+          name="MainInterface"
+          options={{ headerShown: false }}
+          component={MainInterface}
+        />
+        <Stack.Screen
           name="Profile"
           options={{ headerShown: false }}
           component={Profile}
         />
         <Stack.Screen
-          name="MainInterface"
+          name="UserHistory"
           options={{ headerShown: false }}
-          component={MainInterface}
+          component={UserHistory}
+        />
+        <Stack.Screen
+          name="FAQ"
+          options={{ headerShown: false }}
+          component={FAQ}
         />
       </Stack.Navigator>
     </NavigationContainer>

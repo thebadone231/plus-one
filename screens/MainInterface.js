@@ -40,7 +40,13 @@ const MainInterface = () => {
           <View style={[styles.botNavBar, { flexGrow: 1 }]} classname="bottom navigation bar">
             <View style={{ justifyContent: 'center' }}>
               <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
-                <Text>Nav bar</Text>
+                <Text>Profile</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=> {navigation.navigate('UserHistory')}}>
+                <Text>User History</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=> {navigation.navigate('FAQ')}}>
+                <Text>FAQ</Text>
               </TouchableOpacity>
             </View>
           </View> 

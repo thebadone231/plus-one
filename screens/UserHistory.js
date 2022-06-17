@@ -8,7 +8,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
-const Profile = () => {
+const UserHistory = () => {
   const navigation = useNavigation();
 
   const [renderState, setRenderState] = useState(false);
@@ -114,13 +114,13 @@ const Profile = () => {
   if (renderState === true) {
     profilePage =
     <View style={{height:'100%', width:'100%'}}>
-      <View style={{flex: 3,alignItems:'center', justifyContent:'center'}}>
+      <View style={{flex: 3,alignItems:'center', justifyContent:'flex-end'}}>
               <Image style={styles.iconDimension} source={require('../assets/user.png')}/>
               <Text style={{fontWeight:'500', fontSize:17}}>hello {userData['userName']}</Text>
             </View>
 
             <View style={{flex: 15, alignItems:'center', justifyContent:'space-between'}}>
-              <View style={{flex:3 ,flexDirection:'row', width:'83%',  justifyContent:'space-between',}}>
+              <View style={{flex:3 ,flexDirection:'row', width:'83%', alignItems:'center', justifyContent:'space-between',}}>
                 <Image style={{width:35, height:35,}} source={require('../assets/exclamationMark.png')}/>
                 <Text>Please sign out and log in again to change{'\n'}
                       your email or password if it has been more{'\n'}
@@ -240,4 +240,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default UserHistory;
