@@ -108,6 +108,10 @@ export const handleForgotPassword = async (email) => {
   }
 };
 
+export const isSignedIn = () => {
+  return firebase.auth().getcurrentUser;
+};
+
 /* database structuring:
   user: {
       userdata: {
