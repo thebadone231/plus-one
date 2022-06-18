@@ -4,10 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import { HomeStackScreen } from '../Stack Navigation/HomeStackScreen';
+import HomeStackScreen from '../Stack Navigation/HomeStackScreen';
 import ActivityStackScreen from '../Stack Navigation/ActivityStackScreen';
 import RequestStackScreen from '../Stack Navigation/RequestStackScreen';
-import MeStackScreen from '../Stack Navigation/MeStackScreen';
+import ProfileStackScreen from '../Stack Navigation/ProfileStackScreen';
 import FAQStackScreen from '../Stack Navigation/FAQStackScreen';
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +16,7 @@ const TAB_ICON = {
   Home: 'md-home',
   Activity: 'md-time',
   Request: 'md-add',
-  Me: 'md-person',
+  Profile: 'md-person',
   FAQ: 'md-help',
 };
 
@@ -54,8 +54,8 @@ export const TabNavigator = () => (
     />
     <Tab.Screen
       options={{ headerShown: false }}
-      name="Me"
-      component={MeStackScreen}
+      name="Profile"
+      component={ProfileStackScreen}
     />
     <Tab.Screen
       options={{ headerShown: false }}

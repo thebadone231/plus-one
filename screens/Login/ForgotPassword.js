@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -12,13 +12,15 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { handleForgotPassword } from '../../services/Firebase';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { AuthenticationContext } from '../../services/Firebase';
 
-const ForgotPassword = () => {
-  const navigation = useNavigation();
+const ForgotPassword = ({ navigation }) => {
   const [alert, setAlert] = useState(false);
   const [email, setEmail] = useState('');
+  const { handleForgotPassword, error, isLoading } = useContext(
+    AuthenticationContext
+  );
 
   return (
     <SafeAreaView>

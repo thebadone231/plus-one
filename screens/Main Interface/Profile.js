@@ -15,8 +15,9 @@ import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { updatePassword, updateEmail } from 'firebase/auth';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { AuthenticationContext } from '../../services/Firebase';
 
-const ActivityScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation }) => {
   const [renderState, setRenderState] = useState(false);
   const [userData, setUserData] = useState({});
   const [visible, setVisibility] = useState({ name: 'eye-off' });
@@ -32,7 +33,8 @@ const ActivityScreen = ({ navigation }) => {
     screen: '',
   });
 
-  const userDocRef = doc(db, 'users/' + auth.currentUser.email);
+  const { user } = useContext(AuthenticationContext);
+  const userDocRef = doc(db, 'users/' + user.email);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -51,8 +53,6 @@ const ActivityScreen = ({ navigation }) => {
       });
     console.log('hi');
   }, []);
-
-  console.log(userData);
 
   //functional component - input boxes
   let input_component = (field_name, field_value, key, visibility = false) => {
@@ -115,7 +115,7 @@ const ActivityScreen = ({ navigation }) => {
       });
     } else {
       if (passwordData['newPassword'].length !== 0) {
-        await updatePassword(auth.currentUser, passwordData['password'])
+        await updatePassword(user, passwordData['password'])
           .then(() => {
             userData['password'] = passwordData['password'];
             setDoc(userDocRef, { userdata: userData }, { merge: true });
@@ -127,8 +127,8 @@ const ActivityScreen = ({ navigation }) => {
             });
           })
           .catch(console.error);
-      } else if (userData['email'] !== auth.currentUser.email) {
-        await updateEmail(auth.currentUser, userData['email'])
+      } else if (userData['email'] !== user.email) {
+        await updateEmail(user, userData['email'])
           .then(() => {
             setDoc(userDocRef, { userdata: userData }, { merge: true });
             setAlert({
@@ -170,7 +170,7 @@ const ActivityScreen = ({ navigation }) => {
     profilePage = (
       <View style={{ height: '100%', width: '100%' }}>
         <View
-          style={{ flex: 3, alignItems: 'center', justifyContent: 'flex-end' }}
+          style={{ flex: 3, alignItems: 'center', justifyContent: 'center' }}
         >
           <Image
             style={styles.iconDimension}
@@ -193,7 +193,6 @@ const ActivityScreen = ({ navigation }) => {
               flex: 3,
               flexDirection: 'row',
               width: '83%',
-              alignItems: 'center',
               justifyContent: 'space-between',
             }}
           >
@@ -355,4 +354,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ActivityScreen;
+export default ProfileScreen;

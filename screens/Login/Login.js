@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,17 +10,18 @@ import {
   Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { handleSignIn } from '../../services/Firebase';
 import { auth } from '../../services/Firebase';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { AuthenticationContext } from '../../services/Firebase';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [visible, setVisibility] = useState({ name: 'eye-off' });
   const [alert, setAlert] = useState(false);
-
-  const navigation = useNavigation();
+  const { handleSignIn, error, isLoading, user } = useContext(
+    AuthenticationContext
+  );
 
   const ToggleVisibilty = () => {
     if (visible.name === 'eye') {
@@ -41,11 +42,8 @@ const LoginScreen = () => {
     } else {
       try {
         await handleSignIn(email, password);
-        if (auth.currentUser === null) {
+        if (user === null) {
           setAlert(true);
-          navigation.navigate('LoginScreen');
-        } else {
-          navigation.navigate('MainInterface');
         }
       } catch (error) {
         console.error(error);

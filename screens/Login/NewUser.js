@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -13,12 +13,11 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
-import { handleSignUp, auth } from '../../services/Firebase';
+import { auth } from '../../services/Firebase';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { AuthenticationContext } from '../../services/Firebase';
 
-const NewUser = () => {
-  const navigation = useNavigation();
-
+const NewUser = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -35,6 +34,8 @@ const NewUser = () => {
   const [passwordLengthAlert, setPasswordLengthAlert] = useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [failureAlert, setFailureAlert] = useState(false);
+
+  const { handleSignUp, error, isLoading } = useContext(AuthenticationContext);
 
   //Toggles the eye icon to show the password
   const ToggleVisibilty = () => {
