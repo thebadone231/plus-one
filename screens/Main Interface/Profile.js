@@ -33,8 +33,7 @@ const ProfileScreen = ({ navigation }) => {
     screen: '',
   });
 
-  const { user } = useContext(AuthenticationContext);
-  const userDocRef = doc(db, 'users/' + user.email);
+  const userDocRef = doc(db, 'users/' + auth.currentUser.email);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -115,7 +114,7 @@ const ProfileScreen = ({ navigation }) => {
       });
     } else {
       if (passwordData['newPassword'].length !== 0) {
-        await updatePassword(user, passwordData['password'])
+        await updatePassword(auth.currentUser, passwordData['password'])
           .then(() => {
             userData['password'] = passwordData['password'];
             setDoc(userDocRef, { userdata: userData }, { merge: true });
@@ -127,8 +126,8 @@ const ProfileScreen = ({ navigation }) => {
             });
           })
           .catch(console.error);
-      } else if (userData['email'] !== user.email) {
-        await updateEmail(user, userData['email'])
+      } else if (userData['email'] !== auth.currentUser.email) {
+        await updateEmail(auth.currentUser, userData['email'])
           .then(() => {
             setDoc(userDocRef, { userdata: userData }, { merge: true });
             setAlert({
