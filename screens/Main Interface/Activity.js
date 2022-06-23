@@ -33,18 +33,18 @@ const ActivityScreen = ({ navigation }) => {
   });
 
   const userDocRef = doc(db, 'users/' + auth.currentUser.email);
-
   useEffect(() => {
     const getUserData = async () => {
       const UserDatabase = await getDoc(userDocRef);
       const userDetails = UserDatabase.data();
       setUserData(userDetails['userdata']);
+      console.log('this is userDetails', userDetails);
     };
 
     getUserData()
       .then(() => {
         setRenderState(true);
-        console.log(userData);
+        console.log('this is userData', userData);
       })
       .catch((error) => {
         setRenderState(false), console.log(error);
@@ -177,7 +177,7 @@ const ActivityScreen = ({ navigation }) => {
             source={require('../../assets/user.png')}
           />
           <Text style={{ fontWeight: '500', fontSize: 17 }}>
-            hello {userData['userName']}
+            hello {userData ? userData['userName'] : 'unknown user'}
           </Text>
         </View>
 
