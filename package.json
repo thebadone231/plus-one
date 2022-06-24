@@ -52,8 +52,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "expo-cli": "^5.4.7",
-    "gh-pages": "^4.0.0"
+    "expo-cli": "^5.4.7"
   },
   "private": true
 }

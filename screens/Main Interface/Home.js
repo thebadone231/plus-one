@@ -10,8 +10,9 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Geocoder from 'react-native-geocoding';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view';
+import RequestCard from './RequestCardComponent';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // to initialize geocoding which allows for converting of
 // latlong to location and vice versa
@@ -118,10 +119,10 @@ const HomeScreen = ({ navigation }) => {
         placeholder="Search"
         minLength={3} // minimum length of text to search
         autoFocus={false}
-        listViewDisplayed="auto" // true/false/undefined
+        listViewDisplayed="true" // true/false/undefined
         fetchDetails={true}
         returnKeyType={'search'}
-        renderDescription={(row) => row.terms[0].value} // display street only
+        renderDescription={(row) => row.description} // display full address
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           console.log('this is data \n', data);
@@ -173,9 +174,9 @@ const HomeScreen = ({ navigation }) => {
   const [openCategory, setOpenCatergory] = useState(false);
   const [valueCategory, setValueCategory] = useState(null);
   const [itemsCategory, setItemsCategory] = useState([
-    { label: 'By Price', value: 'price' },
-    { label: 'By Distance', value: 'distance' },
-    { label: 'By Time', value: 'time' },
+    { label: 'Price', value: 'price' },
+    { label: 'Distance', value: 'distance' },
+    { label: 'Time', value: 'time' },
   ]);
 
   // for sorting by larger or smaller than
@@ -261,7 +262,7 @@ const HomeScreen = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                 </View>
-
+                <View style={{ flex: 1 }}></View>
                 <View style={styles.allRequestsContainer}>
                   <View style={styles.sortingContainer}>
                     <View style={styles.spacer}></View>
@@ -313,10 +314,10 @@ const HomeScreen = ({ navigation }) => {
                         }}
                       />
                     </View>
-                    <View style={styles.findIcon}>
+                    <View style={styles.findIconContainer}>
                       <TouchableOpacity>
                         <Image
-                          style={styles.locationIcon}
+                          style={styles.findIcon}
                           source={require('../../assets/search.png')}
                         />
                       </TouchableOpacity>
@@ -325,13 +326,13 @@ const HomeScreen = ({ navigation }) => {
                   </View>
 
                   <View style={styles.detailedRequestsContainer}>
-                    <Text>Detailed Requests</Text>
-                    <Text>Detailed Requests</Text>
-                    <Text>Detailed Requests</Text>
-                    <Text>Detailed Requests</Text>
-                    <Text>Detailed Requests</Text>
-                    <Text>Detailed Requests</Text>
-                    <Text>Detailed Requests</Text>
+                    <ScrollView>
+                      <RequestCard />
+                      <RequestCard />
+                      <RequestCard />
+                      <RequestCard />
+                      <RequestCard />
+                    </ScrollView>
                   </View>
                 </View>
               </KeyboardAwareView>
@@ -354,6 +355,9 @@ const styles = StyleSheet.create({
   searchbarContainer: {
     flex: 1,
     flexDirection: 'row',
+    position: 'absolute',
+    elevation: 100,
+    zIndex: 100,
   },
   searchbar: {
     flex: 6,
@@ -364,8 +368,9 @@ const styles = StyleSheet.create({
   location: {
     flex: 1,
     alignContent: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginLeft: -9,
+    marginTop: 17,
   },
   locationIcon: {
     width: 30,
@@ -375,13 +380,17 @@ const styles = StyleSheet.create({
 
   allRequestsContainer: {
     flex: 10,
+    zIndex: 1,
+    elevation: 1,
   },
   sortingContainer: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'row',
+    marginTop: 5,
+    marginBottom: -10,
   },
   spacer: {
-    flex: 1,
+    flex: 0.5,
   },
   category: {
     flex: 5,
@@ -401,14 +410,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
   },
-  findIcon: {
+  findIconContainer: {
     flex: 1.5,
     alignContent: 'center',
     justifyContent: 'center',
   },
+  findIcon: {
+    width: 20,
+    height: 20,
+    alignSelf: 'center',
+  },
   detailedRequestsContainer: {
     flex: 10,
-    backgroundColor: 'grey',
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
