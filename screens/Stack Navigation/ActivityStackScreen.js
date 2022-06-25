@@ -9,7 +9,6 @@ const ActivityStackScreen = () => {
   return (
     <ActivityStack.Navigator screenOptions={{ headerShown: false }}>
       <ActivityStack.Screen name="ActivityScreen" component={ActivityScreen} />
-      <ActivityStack.Screen name="HomeScreen" component={HomeScreen} />
     </ActivityStack.Navigator>
   );
 };

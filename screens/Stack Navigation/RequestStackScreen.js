@@ -9,7 +9,6 @@ const RequestStackScreen = () => {
   return (
     <RequestStack.Navigator screenOptions={{ headerShown: false }}>
       <RequestStack.Screen name="RequestScreen" component={RequestScreen} />
-      <RequestStack.Screen name="HomeScreen" component={HomeScreen} />
     </RequestStack.Navigator>
   );
 };
