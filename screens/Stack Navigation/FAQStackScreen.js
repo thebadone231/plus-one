@@ -9,7 +9,6 @@ const FAQStackScreen = () => {
   return (
     <FAQStack.Navigator screenOptions={{ headerShown: false }}>
       <FAQStack.Screen name="FAQScreen" component={FAQScreen} />
-      <FAQStack.Screen name="HomeScreen" component={HomeScreen} />
     </FAQStack.Navigator>
   );
 };

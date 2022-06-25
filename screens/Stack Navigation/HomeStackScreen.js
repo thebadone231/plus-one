@@ -12,10 +12,6 @@ const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="ActivityScreen" component={ActivityScreen} />
-      <HomeStack.Screen name="RequestScreen" component={RequestScreen} />
-      <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <HomeStack.Screen name="FAQScreen" component={FAQScreen} />
     </HomeStack.Navigator>
   );
 };
