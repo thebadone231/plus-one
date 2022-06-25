@@ -13,11 +13,12 @@ import Geocoder from 'react-native-geocoding';
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view';
 import RequestCard from './RequestCardComponent';
 import { ScrollView } from 'react-native-gesture-handler';
+import GOOGLEAPIKEY from '../../services/config';
 
 // to initialize geocoding which allows for converting of
 // latlong to location and vice versa
 
-Geocoder.init('AIzaSyBtKQ04efioF9NJ44J1ARRhDIydhskD8XM', { language: 'en' });
+Geocoder.init(GOOGLEAPIKEY, { language: 'en' });
 
 const HomeScreen = ({ navigation }) => {
   const { user, handleSignout } = useContext(AuthenticationContext);
@@ -133,7 +134,7 @@ const HomeScreen = ({ navigation }) => {
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
-          key: 'AIzaSyBtKQ04efioF9NJ44J1ARRhDIydhskD8XM',
+          key: GOOGLEAPIKEY,
           language: 'en', // language of the results
           components: 'country:sg',
         }}
