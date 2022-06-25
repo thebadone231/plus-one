@@ -8,7 +8,6 @@ import {
   Image,
   Keyboard,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../../services/Firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -44,8 +43,7 @@ const FAQScreen = ({ navigation }) => {
       title: 'How do I cancel my order?',
       content: 'Lorem ipsum...',
     },
-    {
-      title: 'I am unable to contact the buyer',
+    {title: 'I am unable to contact the buyer',
       content:
         'Have you given our in app chat function a try?\nElse you can find the contact details of the buyer\nin the +1 request ',
     },
@@ -57,31 +55,17 @@ const FAQScreen = ({ navigation }) => {
       <View
         style={{ backgroundColor: '#D5DDF9', alignItems: 'center', padding: 5 }}
       >
-        <Text style={{ fontSize: 17, fontWeight: '600', marginTop: 7 }}>
+        <Text style={{ fontSize: 17, fontWeight: '600', marginTop: 10 }}>
           {section.title}
         </Text>
-        <Image
-          style={{ width: 15, height: 15 }}
-          source={
-            active_sections.includes(index)
-              ? require('../../assets/circled-chevron-up.png')
-              : require('../../assets/circled-chevron-down.png')
-          }
-        />
+        <Image style={{ width: 15, height: 15 }} source={active_sections.includes(index) ? require('../../assets/circled-chevron-up.png'): require('../../assets/circled-chevron-down.png')}/>
       </View>
     );
   };
 
   let Content = (section, isActive) => {
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          backgroundColor: '#E8EDFF',
-          padding: 7,
-          borderRadius: 15,
-        }}
-      >
+      <View style={styles.content}>
         <Text style={{ fontSize: 15, fontWeight: '400' }}>
           {section.content}
         </Text>
@@ -92,14 +76,8 @@ const FAQScreen = ({ navigation }) => {
   //function for uploading of feedback
   const upload_feedback = async () => {
     var today = new Date();
-    var date =
-      today.getFullYear() +
-      '-' +
-      (today.getMonth() + 1) +
-      '-' +
-      today.getDate();
-    var time =
-      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    var date = today.getFullYear() + '-' +(today.getMonth() + 1) +'-' +today.getDate();
+    var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     const dateTime = date + ' ' + time;
     await setDoc(
       userFeedbackDocRef,
@@ -112,21 +90,15 @@ const FAQScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ ...styles.container, justifyContent: 'center' }}>
-      <View
-        style={{ flex: 5, justifyContent: 'flex-end', alignItems: 'center' }}
-      >
-        <TouchableOpacity
-          style={{ width: '19%' }}
-          onPress={() => {
-            navigation.navigate('HomeScreen');
-          }}
-        >
-          <Text style={{ ...styles.mainLogo }}> +1 </Text>
+    <View style={{...styles.container, justifyContent:'center'}}>
+      <View style={{flex:5, justifyContent:'flex-end', alignItems:'center'}}>
+        <TouchableOpacity style={{width:'19%'}}  onPress={()=>{navigation.navigate('MainInterface')}}>
+          <Text style={{...styles.mainLogo}}> +1 </Text>
         </TouchableOpacity>
       </View>
+    
 
-      <View style={{ flex: 23, marginTop: 10 }}>
+      <View style={{flex:23, marginTop: 10 }}>
         <KeyboardAwareScrollView>
           <Accordion
             activeSections={active_sections}
@@ -138,62 +110,26 @@ const FAQScreen = ({ navigation }) => {
             }}
             expandMultiple={true}
           />
-          <View
-            style={{
-              alignItems: 'center',
-              width: '100%',
-              height: 360,
-              marginTop: 40,
-            }}
-          >
+          <View style={styles.feedback}>
             <View style={{ flex: 1, justifyContent: 'flex-end' }}>
               <Text style={{ fontSize: 16, fontWeight: '500' }}>
                 Send us a feedback!
               </Text>
             </View>
 
-            <View
-              style={{
-                flex: 11,
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
-              <TextInput
-                style={{
-                  height: '85%',
-                  width: '90%',
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  paddingLeft: 13,
-                  paddingTop: 10,
-                  fontSize: 15,
-                  fontWeight: '500',
-                }}
+            <View style={{flex: 11, justifyContent: 'center', alignItems: 'center', width: '100%',}}>
+              <TextInput style={styles.feedbackText}
                 multiline={true}
                 placeholder="Details: "
                 returnKeyType="done"
-                onSubmitEditing={() => {
-                  Keyboard.dismiss();
-                }}
+                onSubmitEditing={() => {Keyboard.dismiss();}}
                 blurOnSubmit={true}
-                onChangeText={(text) => {
-                  setFeedback(text);
-                }}
-              />
+                onChangeText={(text) => {setFeedback(text);}}/>
             </View>
 
             <View style={{ flex: 3, alignItems: 'center', width: '100%' }}>
               <TouchableOpacity
-                style={{
-                  backgroundColor: 'white',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '23%',
-                  height: '37%',
-                  borderRadius: 7,
-                }}
+                style={styles.submitButton}
                 onPress={upload_feedback}
               >
                 <Text style={{ fontSize: 17, fontWeight: '500' }}>Submit</Text>
@@ -201,23 +137,6 @@ const FAQScreen = ({ navigation }) => {
             </View>
           </View>
         </KeyboardAwareScrollView>
-      </View>
-
-      <View style={{ flex: 3, backgroundColor: '#908830' }}>
-        <View
-          style={[styles.botNavBar, { flexGrow: 1 }]}
-          classname="bottom navigation bar"
-        >
-          <View style={{ justifyContent: 'center' }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('HomeScreen');
-              }}
-            >
-              <Text>Nav bar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
       </View>
 
       <AwesomeAlert
@@ -255,6 +174,41 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+
+  content:{
+    alignItems: 'center', 
+    backgroundColor: '#E8EDFF', 
+    padding: 7, 
+    borderRadius: 15,
+  },
+
+  feedback: {
+    alignItems: 'center', 
+    width: '100%', 
+    height: 360, 
+    marginTop: 30,
+  }, 
+
+  feedbackText: {
+    height: '85%',
+    width: '90%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingLeft: 13,
+    paddingTop: 10,
+    fontSize: 15,
+    fontWeight: '500',
+}, 
+
+submitButton: {
+  backgroundColor: 'white',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '23%',
+  height: '37%',
+  borderRadius: 7,
+}
+
 });
 
 export default FAQScreen;

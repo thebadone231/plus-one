@@ -1,304 +1,108 @@
-import React, { useState, useContext, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-  ScrollView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState} from 'react';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, ScrollView} from 'react-native';
 import { auth, db } from '../../services/Firebase';
-import { getDoc, doc, setDoc } from 'firebase/firestore';
-import { updatePassword, updateEmail } from 'firebase/auth';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {getDoc, doc} from 'firebase/firestore';
+import SelectDropdown from 'react-native-select-dropdown'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-const ActivityScreen = ({ navigation }) => {
-  const [renderState, setRenderState] = useState(false);
-  const [userData, setUserData] = useState({});
-  const [visible, setVisibility] = useState({ name: 'eye-off' });
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    password: '',
-  });
-  const [alert, setAlert] = useState({
-    status: false,
-    title: '',
-    message: '',
-    screen: '',
-  });
 
-  const userDocRef = doc(db, 'users/' + auth.currentUser.email);
-  useEffect(() => {
-    const getUserData = async () => {
-      const UserDatabase = await getDoc(userDocRef);
-      const userDetails = UserDatabase.data();
-      setUserData(userDetails['userdata']);
-      console.log('this is userDetails', userDetails);
-    };
+const ActivityScreen = () => {
 
-    getUserData()
-      .then(() => {
-        setRenderState(true);
-        console.log('this is userData', userData);
-      })
-      .catch((error) => {
-        setRenderState(false), console.log(error);
-      });
-    console.log('hi');
-  }, []);
+  const [userData, setUserData] = useState([]);
+  const [type, setType] = useState('');
+  const [time, setTime] = useState('');
 
-  console.log(userData);
+  const userDocRef = doc(db, 'users/'+ auth.currentUser.email)
 
-  //functional component - input boxes
-  let input_component = (field_name, field_value, key, visibility = false) => {
-    return (
-      <View style={styles.input_container}>
-        <Text style={{ fontSize: 15, fontWeight: '500' }}>{field_name}: </Text>
-        <TextInput
-          style={styles.inputBox}
-          defaultValue={field_value}
-          secureTextEntry={visibility}
-          onChangeText={(text) => {
-            if (field_value !== '') {
-              let new_object = userData;
-              new_object[key] = text;
-              setUserData(new_object);
-            } else {
-              let new_object = passwordData;
-              new_object[key] = text;
-              setPasswordData(new_object);
-            }
-          }}
-        />
-      </View>
-    );
-  };
+  useEffect( ()=>{
 
-  //logic for updating of particulars
-  const update_particulars = async () => {
-    if (passwordData['currentPassword'] === '') {
-      setAlert({
-        status: true,
-        title: 'Unsuccessful Update',
-        message:
-          'Please key in your current password to update your particulars',
-        screen: 'Profile',
-      });
-    } else if (userData['password'] !== passwordData['currentPassword']) {
-      setAlert({
-        status: true,
-        title: 'Unsuccessful Update',
-        message: 'Current password is incorrect',
-        screen: 'Profile',
-      });
-    } else if (passwordData['newPassword'] !== passwordData['password']) {
-      setAlert({
-        status: true,
-        title: 'Unsuccessful Update',
-        message: 'New password and confirm password do not match',
-        screen: 'Profile',
-      });
-    } else if (
-      passwordData['newPassword'].length !== 0 &&
-      passwordData['newPassword'].length < 8
-    ) {
-      setAlert({
-        status: true,
-        title: 'Unsuccessful Update',
-        message: 'Your password has to contain a minimal of 8 characters',
-        screen: 'Profile',
-      });
-    } else {
-      if (passwordData['newPassword'].length !== 0) {
-        await updatePassword(auth.currentUser, passwordData['password'])
-          .then(() => {
-            userData['password'] = passwordData['password'];
-            setDoc(userDocRef, { userdata: userData }, { merge: true });
-            setAlert({
-              status: true,
-              title: 'Successfully Updated',
-              message: 'Particulars of user have been updated',
-              screen: 'HomeScreen',
-            });
-          })
-          .catch(console.error);
-      } else if (userData['email'] !== auth.currentUser.email) {
-        await updateEmail(auth.currentUser, userData['email'])
-          .then(() => {
-            setDoc(userDocRef, { userdata: userData }, { merge: true });
-            setAlert({
-              status: true,
-              title: 'Successfully Updated',
-              message: 'Particulars of user have been updated',
-              screen: 'HomeScreen',
-            });
-          })
-          .catch(console.error);
-      } else {
-        setDoc(userDocRef, { userdata: userData }, { merge: true });
-        setAlert({
-          status: true,
-          title: 'Successfully Updated',
-          message: 'Particulars of user have been updated',
-          screen: 'HomeScreen',
-        });
-      }
+  const getUserData = async() => {
+    const UserDatabase = await getDoc(userDocRef);
+    const userdata = UserDatabase.data();
+    setUserData(userdata['requests']);
     }
-  };
 
-  //conditional rendering of profile page based on status of fetching of data
-  let profilePage = (
-    <View
-      style={{
-        height: '100%',
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <ActivityIndicator size="large" />
-      <Text>loading user information</Text>
-    </View>
-  );
+  getUserData().then(()=>{console.log(userData)}).catch((error)=> {console.error;})
+  console.log('hi');
+  console.log(type);
+  console.log(time);
 
-  if (renderState === true) {
-    profilePage = (
-      <View style={{ height: '100%', width: '100%' }}>
-        <View
-          style={{ flex: 3, alignItems: 'center', justifyContent: 'flex-end' }}
-        >
-          <Image
-            style={styles.iconDimension}
-            source={require('../../assets/user.png')}
-          />
-          <Text style={{ fontWeight: '500', fontSize: 17 }}>
-            hello {userData ? userData['userName'] : 'unknown user'}
-          </Text>
-        </View>
+  }, [])
 
-        <View
-          style={{
-            flex: 15,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <View
-            style={{
-              flex: 3,
-              flexDirection: 'row',
-              width: '83%',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Image
-              style={{ width: 35, height: 35 }}
-              source={require('../../assets/exclamationMark.png')}
-            />
-            <Text>
-              Please sign out and log in again to change{'\n'}
-              your email or password if it has been more{'\n'}
-              than 1 min since you logged in
-            </Text>
-          </View>
-          <View style={{ flex: 23, alignItems: 'center' }}>
-            <KeyboardAwareScrollView>
-              {input_component(
-                'First Name',
-                userData['firstName'],
-                'firstName'
-              )}
-              {input_component('Last Name', userData['lastName'], 'lastName')}
-              {input_component('Username', userData['userName'], 'userName')}
-              {input_component('Current Password', '', 'currentPassword', true)}
-              {input_component('New Password', '', 'newPassword', true)}
-              {input_component('Confirm Password', '', 'password', true)}
-              {input_component('Email', userData['email'], 'email')}
-              {input_component(
-                'Contact Number',
-                userData['contactNumber'],
-                'contactNumber'
-              )}
-              {input_component(
-                'Home Address',
-                userData['homeAddress'],
-                'homeAddress'
-              )}
-              {input_component(
-                'Postal Code',
-                userData['postalCode'],
-                'postalCode'
-              )}
-              <View style={{ width: '100%', alignItems: 'center' }}>
-                <TouchableOpacity
-                  style={styles.submitButton}
-                  onPress={() => {
-                    update_particulars();
-                  }}
-                >
-                  <Text style={{ fontSize: 17, fontWeight: '600' }}>
-                    update
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </KeyboardAwareScrollView>
-          </View>
-        </View>
-      </View>
-    );
+
+
+  const field1 = [
+    {'label':'Your +1',
+      'value': '+1'}, 
+    {'label':'Your Requests', 
+      'value':'requests'}, 
+    {'label':'Your Deliveries', 
+      'value':'deliveries'}]
+
+  const field2 = [
+    {'label':'Last Week',
+      'value': 'last week'}, 
+    {'label':'Last 3 months', 
+      'value':'last 3 months'}, 
+    {'label':'Last 6 months', 
+      'value':'last 6 months'}]
+
+  //create function for processing of data
+  let data_processing = () =>{
+    //go through all types of requests (current etc) and one list for each type of request - +1, requests, deliveries etc
+    //each item in list should have the time as well as the details
   }
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 4, justifyContent: 'flex-end' }}>
-        <TouchableOpacity
-          style={{ alignItems: 'center' }}
-          onPress={() => {
-            navigation.navigate('HomeScreen');
-          }}
-        >
-          <Text style={{ ...styles.mainLogo }}> +1 </Text>
-        </TouchableOpacity>
-      </View>
 
-      <View style={{ flex: 26 }}>{profilePage}</View>
+        <View style={{flex:5, justifyContent:'flex-end', alignItems:'center'}}>
+            <Text style={{...styles.mainLogo}}> +1 </Text>
+        </View>
 
-      <View style={{ flex: 3, backgroundColor: '#908830' }}>
-        <View
-          style={[styles.botNavBar, { flexGrow: 1 }]}
-          classname="bottom navigation bar"
-        >
-          <View style={{ justifyContent: 'center' }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('HomeScreen');
-              }}
-            >
-              <Text>Nav bar</Text>
-            </TouchableOpacity>
+        <View style={{flex:23,}}>
+          <View style={{flex:1, flexDirection:'row', justifyContent:'space-around', paddingTop:20}}>
+            <View>
+              <SelectDropdown 
+              data={field1}
+              buttonTextAfterSelection={(selectedItem)=>{return selectedItem['label']}}
+              onSelect={(selectedItem)=>{setType(selectedItem['value']);}}
+              rowTextForSelection={(item, index) => {return item['label']}}
+              buttonStyle={{width:140, height:'50%', borderRadius:6}}
+              buttonTextStyle={{fontSize:15, fontWeight:'600'}}
+              rowStyle={{height:33}}
+              rowTextStyle={{fontSize:14, fontWeight:'400'}}
+              searchPlaceHolder='test'
+              />
+            </View>
+            <View style={{}}>
+              <SelectDropdown 
+                data={field2}
+                buttonTextAfterSelection={(selectedItem)=>{return selectedItem['label']}}
+                onSelect={(selectedItem)=>{setTime(selectedItem['value']);}}
+                rowTextForSelection={(item, index) => {return item['label']}}
+                buttonStyle={{width:140, height:'50%', borderRadius:6}}
+                buttonTextStyle={{fontSize:15, fontWeight:'600'}}
+                rowStyle={{height:33}}
+                rowTextStyle={{fontSize:14, fontWeight:'400'}}
+              />
+            </View>
+            <View>
+              <TouchableOpacity onPress={()=>{console.log(type, time);}}>
+                <Image style={{width:30, height:30}} source={require('../../assets/search.png')}/>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{flex:8}}>
+            <ScrollView contentContainerStyle={{alignItems:'center', }}>
+            <View style={{ height:200, width:350, borderRadius:15, padding:10}}>
+              <Text>This feature is still currently under development</Text>
+            </View>
+            </ScrollView>
           </View>
         </View>
-      </View>
+        
 
-      <AwesomeAlert
-        show={alert['status']}
-        title={alert['title']}
-        message={alert['message']}
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        showCancelButton={true}
-        cancelText="Close"
-        onCancelPressed={() => {
-          setAlert(false);
-          navigation.navigate(alert['screen']);
-        }}
-      />
     </View>
   );
 };
@@ -312,38 +116,6 @@ const styles = StyleSheet.create({
   mainLogo: {
     fontSize: 50,
     fontWeight: '800',
-  },
-
-  input_container: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: 43,
-    width: 310,
-  },
-
-  inputBox: {
-    height: '77%',
-    width: 173,
-    borderRadius: 8,
-    backgroundColor: 'white',
-    paddingHorizontal: 10,
-  },
-
-  iconDimension: {
-    width: 60,
-    height: 60,
-    marginBottom: 10,
-  },
-
-  submitButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 10,
-    height: 30,
-    marginTop: 10,
-    width: '35%',
   },
 
   botNavBar: {

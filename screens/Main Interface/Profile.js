@@ -9,7 +9,6 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../../services/Firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { updatePassword, updateEmail } from 'firebase/auth';
@@ -30,7 +29,6 @@ const ProfileScreen = ({ navigation }) => {
     status: false,
     title: '',
     message: '',
-    screen: '',
   });
 
   const userDocRef = doc(db, 'users/' + auth.currentUser.email);
@@ -86,21 +84,18 @@ const ProfileScreen = ({ navigation }) => {
         title: 'Unsuccessful Update',
         message:
           'Please key in your current password to update your particulars',
-        screen: 'Profile',
       });
     } else if (userData['password'] !== passwordData['currentPassword']) {
       setAlert({
         status: true,
         title: 'Unsuccessful Update',
         message: 'Current password is incorrect',
-        screen: 'Profile',
       });
     } else if (passwordData['newPassword'] !== passwordData['password']) {
       setAlert({
         status: true,
         title: 'Unsuccessful Update',
         message: 'New password and confirm password do not match',
-        screen: 'Profile',
       });
     } else if (
       passwordData['newPassword'].length !== 0 &&
@@ -110,7 +105,6 @@ const ProfileScreen = ({ navigation }) => {
         status: true,
         title: 'Unsuccessful Update',
         message: 'Your password has to contain a minimal of 8 characters',
-        screen: 'Profile',
       });
     } else {
       if (passwordData['newPassword'].length !== 0) {
@@ -122,7 +116,6 @@ const ProfileScreen = ({ navigation }) => {
               status: true,
               title: 'Successfully Updated',
               message: 'Particulars of user have been updated',
-              screen: 'HomeScreen',
             });
           })
           .catch(console.error);
@@ -134,7 +127,6 @@ const ProfileScreen = ({ navigation }) => {
               status: true,
               title: 'Successfully Updated',
               message: 'Particulars of user have been updated',
-              screen: 'HomeScreen',
             });
           })
           .catch(console.error);
@@ -144,7 +136,6 @@ const ProfileScreen = ({ navigation }) => {
           status: true,
           title: 'Successfully Updated',
           message: 'Particulars of user have been updated',
-          screen: 'HomeScreen',
         });
       }
     }
@@ -253,36 +244,9 @@ const ProfileScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 4, justifyContent: 'flex-end' }}>
-        <TouchableOpacity
-          style={{ alignItems: 'center' }}
-          onPress={() => {
-            navigation.navigate('HomeScreen');
-          }}
-        >
-          <Text style={{ ...styles.mainLogo }}> +1 </Text>
-        </TouchableOpacity>
-      </View>
+    <View style={{...styles.container, justifyContent:'flex-end'}}>
 
-      <View style={{ flex: 26 }}>{profilePage}</View>
-
-      <View style={{ flex: 3, backgroundColor: '#908830' }}>
-        <View
-          style={[styles.botNavBar, { flexGrow: 1 }]}
-          classname="bottom navigation bar"
-        >
-          <View style={{ justifyContent: 'center' }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('HomeScreen');
-              }}
-            >
-              <Text>Nav bar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <View style={{ justifyContent:'center', height:'90%' }}>{profilePage}</View>
 
       <AwesomeAlert
         show={alert['status']}
@@ -294,7 +258,6 @@ const ProfileScreen = ({ navigation }) => {
         cancelText="Close"
         onCancelPressed={() => {
           setAlert(false);
-          navigation.navigate(alert['screen']);
         }}
       />
     </View>
