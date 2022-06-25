@@ -90,9 +90,15 @@ const FAQScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ ...styles.container, justifyContent: 'center' }}>
+    <View style={{...styles.container, justifyContent:'center'}}>
+      <View style={{flex:5, justifyContent:'flex-end', alignItems:'center'}}>
+        <TouchableOpacity style={{width:'19%'}}  onPress={()=>{navigation.navigate('MainInterface')}}>
+          <Text style={{...styles.mainLogo}}> +1 </Text>
+        </TouchableOpacity>
+      </View>
+    
 
-      <View style={{ height:'80%', marginTop: 10 }}>
+      <View style={{flex:23, marginTop: 10 }}>
         <KeyboardAwareScrollView>
           <Accordion
             activeSections={active_sections}
