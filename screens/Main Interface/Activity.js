@@ -1,6 +1,5 @@
 import React, { useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, ScrollView} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../../services/Firebase';
 import {getDoc, doc} from 'firebase/firestore';
 import SelectDropdown from 'react-native-select-dropdown'
@@ -8,7 +7,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 const ActivityScreen = () => {
-  const navigation = useNavigation();
 
   const [userData, setUserData] = useState([]);
   const [type, setType] = useState('');

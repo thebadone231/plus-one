@@ -1,6 +1,5 @@
 import React, { useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, Keyboard} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../../services/Firebase';
 import {getDoc, doc, setDoc} from 'firebase/firestore';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -8,12 +7,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Geocoder from 'react-native-geocoding';
 
 const RequestScreen = () => {
-  const navigation = useNavigation();
 
   const [requestData, setRequestData]= useState({})
   const [userData, setUserData] = useState({});
   const [heightDimension, setHeightDimension] = useState({'productName':'77%', 'deliveryLocation':'77%', 'orderDetails':'77%'});
-  const [alert, setAlert] = useState({"status":false, "title":"", "message":"", "page":""});
+  const [alert, setAlert] = useState({"status":false, "title":"", "message":""});
 
   const userDocRef = doc(db, 'users/'+ auth.currentUser.email)
 
@@ -109,14 +107,14 @@ const RequestScreen = () => {
         setAlert({"status":true, 
         "title":"Success", 
         "message":"Your +1 request has been received", 
-        "page":"MainInterface"}))
+      }))
       .catch(console.error) 
 
     } else {
       setAlert({"status":true, 
       "title":"Failure", 
       "message":"Please input a valid delivery address", 
-      "page":"NewRequests"})
+      })
     }
 
   }
