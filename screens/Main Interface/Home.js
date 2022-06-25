@@ -13,7 +13,7 @@ import Geocoder from 'react-native-geocoding';
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view';
 import RequestCard from './RequestCardComponent';
 import { ScrollView } from 'react-native-gesture-handler';
-import GOOGLEAPIKEY from '../../services/config';
+import { GOOGLEAPIKEY } from '../../services/config';
 
 // to initialize geocoding which allows for converting of
 // latlong to location and vice versa
