@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { userCollectionRef } from '../../services/Firebase';
 import { AuthenticationContext } from '../../services/Firebase';
 import SafeArea from '../utility/SafeArea';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
@@ -13,7 +12,7 @@ import { KeyboardAwareView } from 'react-native-keyboard-aware-view';
 import RequestCard from './RequestCardComponent';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GOOGLEAPIKEY } from '../../services/config';
-import { auth, db, requestCollectionRef } from '../../services/Firebase';
+import { requestCollectionRef } from '../../services/Firebase';
 import { LogBox } from 'react-native';
 
 // to initialize geocoding which allows for converting of
@@ -46,17 +45,39 @@ const HomeScreen = ({ navigation }) => {
   const [addressToLatLongCoordinates, setAddressToLatLongCoordinates] =
     useState(null);
 
+  // for storing of QuerySnapshot
+  const [requestQuery, setRequestQuery] = useState(null);
+
+  // to check if requests have loaded
+  const [isRequestLoaded, setIsRequestLoaded] = useState(false);
+
   // to fetch request info
   useEffect(() => {
     const getRequestData = async () => {
       const requestDatabase = await requestCollectionRef();
+      var requestArray = [];
       requestDatabase.forEach((doc) => {
-        console.log(doc.data());
+        requestArray.push({
+          restaurantName: doc.data()['order details']['product name'],
+          price: doc.data()['order details']['price'],
+          address: doc.data()['location']['address'],
+          profilePicture: require('../../assets/user.png'),
+          username: doc.data()['order details']['username'],
+          orderDetails: doc.data()['order details']['order specifics'],
+          deliverBy: doc.data()['order details']['delivery timing'],
+          paymentMethod: doc.data()['order details']['payment method'],
+          contactNumber: doc.data()['order details']['contact number'],
+        });
       });
+      setRequestQuery(requestArray);
+      setIsRequestLoaded(true);
     };
 
     getRequestData();
   }, []);
+
+  // read data from requestDatabase to form requests
+  const displayRequests = () => {};
 
   // to get user current location, need to wait on the homescreen for a while before it works
   useEffect(() => {
@@ -117,8 +138,15 @@ const HomeScreen = ({ navigation }) => {
 
   // to autocomplete location searchbar
   const GooglePlacesInput = () => {
+    const ref = useRef();
+
+    useEffect(() => {
+      ref.current?.setAddressText(searchText);
+    }, []);
+
     return (
       <GooglePlacesAutocomplete
+        ref={ref}
         placeholder="Search"
         minLength={3} // minimum length of text to search
         autoFocus={false}
@@ -148,10 +176,6 @@ const HomeScreen = ({ navigation }) => {
   const latLongToAddress = (latitude, longitude) => {
     Geocoder.from(latitude, longitude)
       .then((json) => {
-        console.log(
-          'this is the address of geocoding \n',
-          json.results[1].formatted_address
-        );
         setSearchText(json.results[1].formatted_address);
       })
       .catch((error) => console.warn(error));
@@ -330,11 +354,19 @@ const HomeScreen = ({ navigation }) => {
 
                   <View style={styles.detailedRequestsContainer}>
                     <ScrollView>
-                      <RequestCard />
-                      <RequestCard />
-                      <RequestCard />
-                      <RequestCard />
-                      <RequestCard />
+                      {isRequestLoaded ? (
+                        requestQuery.map((doc) => {
+                          return (
+                            <View>
+                              <RequestCard request={doc} />
+                            </View>
+                          );
+                        })
+                      ) : (
+                        <View>
+                          <Text>Loading...</Text>
+                        </View>
+                      )}
                     </ScrollView>
                   </View>
                 </View>

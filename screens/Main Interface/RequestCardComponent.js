@@ -8,7 +8,7 @@ const RequestCard = ({ request = {} }) => {
     price = '$3.00',
     address = 'King Edward VII Hall, 1A Kent Ridge Rd, Singapore 119224',
     profilePicture = require('../../assets/user.png'),
-    username = 'vege',
+    username = 'user',
     orderDetails = 'Large coconut shake, no toppings, 0% sugar, less ice',
     deliverBy = '1400',
     paymentMethod = 'Cash',

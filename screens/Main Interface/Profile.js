@@ -266,23 +266,6 @@ const ProfileScreen = ({ navigation }) => {
 
       <View style={{ flex: 26 }}>{profilePage}</View>
 
-      <View style={{ flex: 3, backgroundColor: '#908830' }}>
-        <View
-          style={[styles.botNavBar, { flexGrow: 1 }]}
-          classname="bottom navigation bar"
-        >
-          <View style={{ justifyContent: 'center' }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('HomeScreen');
-              }}
-            >
-              <Text>Nav bar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-
       <AwesomeAlert
         show={alert['status']}
         title={alert['title']}
