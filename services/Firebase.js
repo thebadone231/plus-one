@@ -21,6 +21,8 @@ export const auth = getAuth();
 export const db = getFirestore();
 export const userCollectionRef = collection(db, 'users');
 export const AuthenticationContext = createContext();
+export const requestCollectionRef = () =>
+  firebase.firestore().collection('requests').get();
 
 export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);

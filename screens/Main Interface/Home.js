@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { userCollectionRef } from '../../services/Firebase';
-import { setDoc, doc } from 'firebase/firestore';
 import { AuthenticationContext } from '../../services/Firebase';
 import SafeArea from '../utility/SafeArea';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
@@ -14,6 +13,8 @@ import { KeyboardAwareView } from 'react-native-keyboard-aware-view';
 import RequestCard from './RequestCardComponent';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GOOGLEAPIKEY } from '../../services/config';
+import { auth, db, requestCollectionRef } from '../../services/Firebase';
+import { LogBox } from 'react-native';
 
 // to initialize geocoding which allows for converting of
 // latlong to location and vice versa
@@ -45,18 +46,16 @@ const HomeScreen = ({ navigation }) => {
   const [addressToLatLongCoordinates, setAddressToLatLongCoordinates] =
     useState(null);
 
-  // to fetch user info
+  // to fetch request info
   useEffect(() => {
-    setDoc(
-      doc(userCollectionRef, user.email),
-      {
-        requests: {
-          current: { test: 1 },
-          expired: { test: 2 },
-        },
-      },
-      { merge: true }
-    );
+    const getRequestData = async () => {
+      const requestDatabase = await requestCollectionRef();
+      requestDatabase.forEach((doc) => {
+        console.log(doc.data());
+      });
+    };
+
+    getRequestData();
   }, []);
 
   // to get user current location, need to wait on the homescreen for a while before it works
@@ -83,6 +82,9 @@ const HomeScreen = ({ navigation }) => {
         });
       }
     })();
+
+    // to ignore the useNativeDriver warning
+    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }, []);
 
   // component which shows the map
@@ -120,7 +122,7 @@ const HomeScreen = ({ navigation }) => {
         placeholder="Search"
         minLength={3} // minimum length of text to search
         autoFocus={false}
-        listViewDisplayed="true" // true/false/undefined
+        listViewDisplayed={true} // true/false/undefined
         fetchDetails={true}
         returnKeyType={'search'}
         renderDescription={(row) => row.description} // display full address

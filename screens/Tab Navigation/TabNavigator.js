@@ -26,17 +26,19 @@ const createScreenOptions = ({ route }) => {
     tabBarIcon: ({ size, color }) => (
       <Ionicons name={iconName} size={size} color={color} />
     ),
+    tabBarActiveTintColor: 'tomato',
+    tabBarInactiveTintColor: 'gray',
+    tabBarStyle: [
+      {
+        display: 'flex',
+      },
+      null,
+    ],
   };
 };
 
 export const TabNavigator = () => (
-  <Tab.Navigator
-    screenOptions={createScreenOptions}
-    tabBarOptions={{
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-    }}
-  >
+  <Tab.Navigator screenOptions={createScreenOptions}>
     <Tab.Screen
       options={{ headerShown: false }}
       name="Home"
