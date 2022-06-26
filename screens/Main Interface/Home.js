@@ -76,9 +76,6 @@ const HomeScreen = ({ navigation }) => {
     getRequestData();
   }, []);
 
-  // read data from requestDatabase to form requests
-  const displayRequests = () => {};
-
   // to get user current location, need to wait on the homescreen for a while before it works
   useEffect(() => {
     (async () => {
@@ -415,8 +412,6 @@ const styles = StyleSheet.create({
 
   allRequestsContainer: {
     flex: 10,
-    zIndex: 1,
-    elevation: 1,
   },
   sortingContainer: {
     flex: 1,
