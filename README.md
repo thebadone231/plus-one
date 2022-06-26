@@ -12,7 +12,6 @@
   <p align="center">
     I am getting Liho later, who want? +1!
     <br />
-    <a href="https://plus-one-orbital.herokuapp.com/">View Demo</a>
   </p>
 </div>
 
@@ -75,11 +74,16 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    git clone https://github.com/thebadone231/plus-one
    ```
-2. Install NPM packages
+2. Get your free API Keys and put them in config.js
+   ```sh
+   Google Maps Platform API: https://developers.google.com/maps
+   Firebase API: https://firebase.google.com/
+   ```
+3. Install NPM packages
    ```sh
    npm install
    ```
-3. Run the repo
+4. Run the repo
    ```sh
    npm start
    ```
@@ -92,36 +96,81 @@ To get a local copy up and running follow these simple example steps.
 ### Login page
 
 <div align="center">
-<img src="assets/Login page 1.jpg" alt="Login page 1" width="300" height="500">
-<img src="assets/Login page 2.jpg" alt="Login page 2" width="300" height="500">
-<img src="assets/Login page 3.jpg" alt="Login page 3" width="300" height="500">
-<img src="assets/Login page 4.jpg" alt="Login page 4" width="300" height="500">
+<img src="assets/Login page 1.jpg" alt="Login page 1" width="200" height="400">
+<img src="assets/Login page 2.jpg" alt="Login page 2" width="200" height="400">
+<img src="assets/Login page 3.jpg" alt="Login page 3" width="200" height="400">
+<img src="assets/Login page 4.jpg" alt="Login page 4" width="200" height="400">
 </div>
 <br />
 
 ### Signup page
 
 <div align="center">
-<img src="assets/Signup page 1.jpg" alt="Signup page 1" width="300" height="500">
-<img src="assets/Signup page 2.jpg" alt="Signup page 2" width="300" height="500">
-<img src="assets/Signup page 3.jpg" alt="Signup page 3" width="300" height="500">
-<img src="assets/Signup page 4.jpg" alt="Signup page 4" width="300" height="500">
+<img src="assets/Signup page 1.jpg" alt="Signup page 1" width="200" height="400">
+<img src="assets/Signup page 2.jpg" alt="Signup page 2" width="200" height="400">
+<img src="assets/Signup page 3.jpg" alt="Signup page 3" width="200" height="400">
+<img src="assets/Signup page 4.jpg" alt="Signup page 4" width="200" height="400">
 </div>
 <br />
 
 ### Forget password page
 
 <div align="center">
-<img src="assets/Forgot password page 1.jpg" alt="Forgot password page 1" width="300" height="500">
-<img src="assets/Forgot password page 2.jpg" alt="Forgot password page 2" width="300" height="500">
+<img src="assets/Forgot password page 1.jpg" alt="Forgot password page 1" width="200" height="400">
+<img src="assets/Forgot password page 2.jpg" alt="Forgot password page 2" width="200" height="400">
 </div>
 <br />
 
-### Holding page to be replaced by main interface
+### Home Tab
 
 <div align="center">
-<img src="assets/Holding page 1.jpg" alt="Holding page 1" width="300" height="500">
-<img src="assets/Holding page 2.jpg" alt="Holding page 2" width="300" height="500">
+<img src="assets/Home 1.jpg" alt="Home page 1" width="200" height="400">
+<img src="assets/Home 2.jpg" alt="Home page 2" width="200" height="400">
+<img src="assets/Home 3.jpg" alt="Home page 3" width="200" height="400">
+<img src="assets/Home 4.jpg" alt="Home page 4" width="200" height="400">
+<img src="assets/Home 5.jpg" alt="Home page 5" width="200" height="400">
+<img src="assets/Home 6.jpg" alt="Home page 6" width="200" height="400">
+<img src="assets/Home 7.jpg" alt="Home page 7" width="200" height="400">
+</div>
+<br />
+
+### Activity Tab
+
+<div align="center">
+<img src="assets/Activity 1.jpg" alt="Activity page 1" width="200" height="400">
+<img src="assets/Activity 2.jpg" alt="Activity page 2" width="200" height="400">
+<img src="assets/Activity 3.jpg" alt="Activity page 3" width="200" height="400">
+</div>
+<br />
+
+### Request Tab
+
+<div align="center">
+<img src="assets/Request 1.jpg" alt="Request page 1" width="200" height="400">
+<img src="assets/Request 2.jpg" alt="Request page 2" width="200" height="400">
+<img src="assets/Request 3.jpg" alt="Request page 3" width="200" height="400">
+<img src="assets/Request 4.jpg" alt="Request page 4" width="200" height="400">
+</div>
+<br />
+
+### Profile Tab
+
+<div align="center">
+<img src="assets/Profile 1.jpg" alt="Profile page 1" width="200" height="400">
+<img src="assets/Profile 2.jpg" alt="Profile page 2" width="200" height="400">
+<img src="assets/Profile 3.jpg" alt="Profile page 3" width="200" height="400">
+<img src="assets/Profile 4.jpg" alt="Profile page 4" width="200" height="400">
+<img src="assets/Profile 5.jpg" alt="Profile page 5" width="200" height="400">
+</div>
+<br />
+
+### FAQ Tab
+
+<div align="center">
+<img src="assets/FAQ 1.jpg" alt="FAQ page 1" width="200" height="400">
+<img src="assets/FAQ 2.jpg" alt="FAQ page 2" width="200" height="400">
+<img src="assets/FAQ 3.jpg" alt="FAQ page 3" width="200" height="400">
+<img src="assets/FAQ 4.jpg" alt="FAQ page 4" width="200" height="400">
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -130,17 +179,29 @@ To get a local copy up and running follow these simple example steps.
 
 ## Roadmap
 
-### 1. Navigation across different screens
+### 1. Allow sorting and filtering of requests in Home screen
 
-Users are able to navigate to different screens by clicking on the corresponding icons or words. This is made possible using the onPress function that calls the backend routing functions when users interact with these pressables.
+Currently, there are filters in the frontend of the app already. However, these are static and have no functionality. We will incorporate them and make them functional before the next milestone.
 
-### 2. Secure Authentication Interface
+### 2. Only display requests which have not expired
 
-Before users are allowed access to the services in the application, they will be required to authenticate their identity by keying in the email and password they registered with the application. This information submitted by the user will be cross referenced with that stored in the Firebase authentication server. Once Firebase has ascertained that the veracity of the password provided, users will be directed to the main interface of the application.
+Currently, all of the requests are displayed regardless of whether they have expired or not. We would like to filter out expired requests and only show current ones.
 
-### 3. Writing data to Firebase database
+### 3. Allow user who created the request to edit and delete the request
 
-New users will be required to register themselves via the “New User” screen in the application. After all necessary fields have been filled up correctly, this information will be written in the Firebase database. This information will be retrieved and rendered in the main interface each time the user logs in to the application.
+We would like the user to have the option to edit and delete requests that they have posted since there could be issues like typos and change of orders.
+
+### 4. Implement the activity screen
+
+Allow users to see past and current requests on a separate tab.
+
+### 5. Live in-app chat
+
+We would like to enable users to have a live in-app chat so that they can clarify with one another on details of the order as well as meetup location if needed.
+
+### 6. Reward recommendation system
+
+As some users might not know how much to reward others for completing their requests, we would like to provide users with a suggested range that they could take reference from.
 
 <div id="#challenges"></div>
 <br />
@@ -157,7 +218,15 @@ Deciding what information is necessary, including those required for features ye
 
 ### 3. Rendering alert component
 
-Alerts are incorporated as part of the UI design as they can serve as important visual cues to guide users around the application. While these alerts could be rendered in expo, they could not be rendered when deployed in heroku. We are in the process of resolving this issue. Please refer to the screenshots above on the alerts that are already implemented in the application. 
+Alerts are incorporated as part of the UI design as they can serve as important visual cues to guide users around the application. While these alerts could be rendered in expo, they could not be rendered when deployed in heroku. We are in the process of resolving this issue. Please refer to the screenshots above on the alerts that are already implemented in the application.
+
+### 4. Using of libraries which are not well documented
+
+React native being relatively new, although it was not hard to find libraries that suited our needs, there were usually insufficient documentation on the library itself. For instance, there were methods in the google autocomplete library but we were not taught how to use them. There were relatively few stackoverflow posts dedicated to such libraries as well.
+
+### 5. Realtime reading of database
+
+As we have a lot of data to be loaded in the home screen, we did most of them asynchronously using the useEffect hook. However, when a new request has been made, we have yet to be able to make it appear on the home screen in real time. Users are only able to see it after they quit the app and login again. This is also an issue when it comes to location access. If the user does not turn their location on prior to loggin into the app, the location service does not work as intended.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

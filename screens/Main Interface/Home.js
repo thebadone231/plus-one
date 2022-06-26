@@ -412,6 +412,8 @@ const styles = StyleSheet.create({
 
   allRequestsContainer: {
     flex: 10,
+    elevation: 1,
+    zIndex: 1,
   },
   sortingContainer: {
     flex: 1,
