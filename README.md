@@ -161,6 +161,7 @@ To get a local copy up and running follow these simple example steps.
 <img src="assets/Profile 3.jpg" alt="Profile page 3" width="200" height="400">
 <img src="assets/Profile 4.jpg" alt="Profile page 4" width="200" height="400">
 <img src="assets/Profile 5.jpg" alt="Profile page 5" width="200" height="400">
+<img src="assets/Profile 6.jpg" alt="Profile page 6" width="200" height="400">
 </div>
 <br />
 

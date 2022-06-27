@@ -8,7 +8,7 @@ import { getFirestore, collection, doc, setDoc } from '@firebase/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import React, { useState, createContext } from 'react';
-import { FIREBASEAPIKEY } from './config';
+import { FIREBASEAPIKEY } from './config.js';
 
 const firebaseConfig = FIREBASEAPIKEY;
 
