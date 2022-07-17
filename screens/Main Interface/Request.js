@@ -112,7 +112,7 @@ const RequestScreen = () => {
           'product name': requestData['productName'],
           'delivery timing': requestData['deliveryTiming'],
           'order specifics': requestData['orderDetails'],
-          price: requestData['price'],
+          price: "$" + requestData['price'],
           'payment method': requestData['paymentMethod'],
           'contact number': userData['contactNumber'],
           username: userData['userName'],

@@ -149,7 +149,6 @@ const FAQScreen = ({ navigation }) => {
         cancelText="Close"
         onCancelPressed={() => {
           setAlert(false);
-          navigation.navigate('HomeScreen');
         }}
       />
     </View>
