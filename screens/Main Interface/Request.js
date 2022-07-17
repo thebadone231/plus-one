@@ -8,12 +8,14 @@ import {
   ActivityIndicator,
   Image,
   Keyboard,
+  Button,
 } from 'react-native';
 import { auth, db } from '../../services/Firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Geocoder from 'react-native-geocoding';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const RequestScreen = () => {
   const [requestData, setRequestData] = useState({});
@@ -110,9 +112,9 @@ const RequestScreen = () => {
         },
         'order details': {
           'product name': requestData['productName'],
-          'delivery timing': requestData['deliveryTiming'],
+          'delivery timing': deliveryDate,
           'order specifics': requestData['orderDetails'],
-          price: "$" + requestData['price'],
+          price: requestData['price'],
           'payment method': requestData['paymentMethod'],
           'contact number': userData['contactNumber'],
           username: userData['userName'],
@@ -151,6 +153,30 @@ const RequestScreen = () => {
     }
   };
 
+  // for DateTimePicker, directly from API README
+  const [deliveryDate, setDeliveryDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDeliveryDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
   return (
     <View style={{ ...styles.container, justifyContent: 'center' }}>
       <View style={{ height: '65%' }}>
@@ -160,35 +186,66 @@ const RequestScreen = () => {
           <Text style={{ fontSize: 23, fontWeight: '600' }}>Your Request</Text>
         </View>
         <View style={{ flex: 6 }}>
-          <KeyboardAwareScrollView>
-            <View
-              style={{ alignItems: 'center', justifyContent: 'space-around' }}
-            >
-              {input_component('Product Name', 'productName', true)}
-              {input_component('Delivery Location', 'deliveryLocation', true)}
-              {input_component('Order Details', 'orderDetails', true)}
-              {input_component('Price', 'price')}
-              {input_component('Delivery Timing', 'deliveryTiming')}
-              {input_component('Payment Method', 'paymentMethod')}
-            </View>
+          <View
+            style={{ alignItems: 'center', justifyContent: 'space-around' }}
+          >
+            {input_component('Product Name', 'productName', true)}
+            {input_component('Delivery Location', 'deliveryLocation', true)}
+            {input_component('Order Details', 'orderDetails', true)}
+            {input_component('Price', 'price')}
+            {input_component('Payment Method', 'paymentMethod')}
+          </View>
 
-            <View style={{ alignItems: 'center' }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: 'white',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '27%',
-                  width: '26%',
-                  borderRadius: 8,
-                  marginTop: 40,
-                }}
-                onPress={write_request}
-              >
-                <Text style={{ fontSize: 17, fontWeight: '500' }}>Submit</Text>
-              </TouchableOpacity>
+          <View style={{ alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom: 15,
+                marginTop: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 15, fontWeight: '500' }}>
+                Delivery Time:
+              </Text>
+              <View style={{ marginLeft: 20 }}>
+                <Button onPress={showDatepicker} title="Date" />
+              </View>
+              <View style={{ marginLeft: 20 }}>
+                <Button onPress={showTimepicker} title="Time" />
+              </View>
             </View>
-          </KeyboardAwareScrollView>
+            <Text>
+              Selected: {deliveryDate.toLocaleTimeString()}{' '}
+              {deliveryDate.toDateString()}
+            </Text>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={deliveryDate}
+                mode={mode}
+                is24Hour={false}
+                onChange={onChange}
+              />
+            )}
+          </View>
+          <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'white',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '27%',
+                width: '26%',
+                borderRadius: 8,
+                marginTop: 40,
+              }}
+              onPress={write_request}
+            >
+              <Text style={{ fontSize: 17, fontWeight: '500' }}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 

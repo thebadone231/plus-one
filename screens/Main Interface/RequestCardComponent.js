@@ -24,7 +24,7 @@ const RequestCard = ({ request = {} }) => {
               <Text style={styles.restaurantText}>
                 {restaurantName}
                 {'    '}
-                {price}
+                {`$${price}`}
               </Text>
             </View>
           </View>
@@ -54,7 +54,7 @@ const RequestCard = ({ request = {} }) => {
           <Text>Deliver By:</Text>
         </View>
         <View style={styles.rightContainer}>
-          <Text>{deliverBy}</Text>
+          <Text>{deliverBy.toLocaleString()}</Text>
         </View>
       </View>
       <View style={styles.paymentMethod}>
