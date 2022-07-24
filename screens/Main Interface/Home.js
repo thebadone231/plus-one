@@ -250,8 +250,8 @@ const HomeScreen = ({ navigation }) => {
 
   // for distance
   const [itemsDistanceFilter, setItemsDistanceFilter] = useState([
-    { label: '0m', value: '0' },
-    { label: '500m', value: '500' },
+    { label: '0km', value: '0' },
+    { label: '0.5km', value: '500' },
     { label: '1km', value: '1000' },
     { label: '1.5km', value: '1500' },
     { label: '2km', value: '2000' },
@@ -265,7 +265,7 @@ const HomeScreen = ({ navigation }) => {
     { label: '2h', value: '2' },
     { label: '3h', value: '3' },
     { label: '5h', value: '5' },
-    { label: '12hr', value: '12' },
+    { label: '12h', value: '12' },
   ]);
 
   // alerts for filtering of requests
