@@ -7,15 +7,14 @@ import ProfileScreen from '../Main Interface/Profile';
 import RequestScreen from '../Main Interface/Request';
 import ChatScreen from '../Main Interface/Chat';
 
-const HomeStack = createStackNavigator();
+const ChatStack = createStackNavigator();
 
-const HomeStackScreen = () => {
+const ChatStackScreen = () => {
   return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="ChatScreen" component={ChatScreen} />
-    </HomeStack.Navigator>
+    <ChatStack.Navigator screenOptions={{ headerShown: false }}>
+      <ChatStack.Screen name="ChatScreen" component={ChatScreen} />
+    </ChatStack.Navigator>
   );
 };
 
-export default HomeStackScreen;
+export default ChatStackScreen;

@@ -63,7 +63,6 @@ const HomeScreen = ({ navigation }) => {
       const requestDatabase = await requestCollectionRef();
       var requestArray = [];
       requestDatabase.forEach((doc) => {
-        //console.log(doc.data());
         requestArray.push({
           restaurantName: doc.data()['order details']['product name'],
           price: doc.data()['order details']['price'],
@@ -79,6 +78,8 @@ const HomeScreen = ({ navigation }) => {
           ).toDate(),
           paymentMethod: doc.data()['order details']['payment method'],
           contactNumber: doc.data()['order details']['contact number'],
+          userid: doc.data()['user'],
+          requestid: doc.id,
         });
       });
       setRequestQuery(requestArray);
@@ -444,7 +445,7 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} />
+                                        <RequestCard request={doc} navigation = {navigation} />
                                       </View>
                                     );
                                   }
@@ -455,7 +456,7 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} />
+                                        <RequestCard request={doc} navigation = {navigation} />
                                       </View>
                                     );
                                   }
@@ -475,7 +476,7 @@ const HomeScreen = ({ navigation }) => {
                                   if (distance >= parseInt(valueFilter)) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} />
+                                        <RequestCard request={doc} navigation = {navigation} />
                                       </View>
                                     );
                                   }
@@ -483,7 +484,7 @@ const HomeScreen = ({ navigation }) => {
                                   if (distance <= parseInt(valueFilter)) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} />
+                                        <RequestCard request={doc} navigation = {navigation} />
                                       </View>
                                     );
                                   }
@@ -499,7 +500,7 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} />
+                                        <RequestCard request={doc} navigation = {navigation} />
                                       </View>
                                     );
                                   }
@@ -510,7 +511,7 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} />
+                                        <RequestCard request={doc} navigation = {navigation} />
                                       </View>
                                     );
                                   }
@@ -524,7 +525,7 @@ const HomeScreen = ({ navigation }) => {
                               // check if requests have expired
                               return (
                                 <View>
-                                  <RequestCard request={doc} />
+                                  <RequestCard request={doc} navigation = {navigation} />
                                 </View>
                               );
                             }

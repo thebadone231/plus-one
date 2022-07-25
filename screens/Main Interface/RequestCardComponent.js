@@ -1,8 +1,30 @@
-import React from 'react';
+import React,{useContext, useState, useEffect} from 'react';
 import { Text, Image, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
+import { doc, getDoc, setDoc, addDoc, collection } from 'firebase/firestore';
+import { db, auth, AuthenticationContext, } from '../../services/Firebase';
 
-const RequestCard = ({ request = {} }) => {
+const RequestCard = ({ request = {}, navigation }) => {
+  const [requestdata, setRequestData] = useState([]);
+
+  const { user } = useContext(AuthenticationContext);
+  const requestDocRef = doc(db, 'requests/' + request['requestid']);
+  const sessionDocRef = doc(db, 'session/' + user.email);
+
+
+  useEffect(() => {
+    const getRequestData = async () => {
+      const requestDatabase = await getDoc(requestDocRef);
+      setRequestData(requestDatabase.data());
+    };
+
+    getRequestData()
+      .then(() => {
+      })
+      .catch((error) => {console.log(error);
+      });
+  }, []);
+
   const {
     restaurantName = 'Mr Coconut',
     price = '$3.00',
@@ -79,7 +101,20 @@ const RequestCard = ({ request = {} }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.chatIconContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> {
+              setDoc(doc(db, 'session', user.email, request['requestid'], 'test'), {
+                _id: '',
+                text: '',
+                createdAt: new Date(),
+                user: {
+                    _id: '',
+                    name: '',
+                    avatar: ''
+                },
+            },);
+              setDoc(doc(db, 'session', user.email), {current: request['requestid']});
+              navigation.navigate("ChatScreen")}}
+            >
               <Image
                 style={styles.chatIcon}
                 source={require('../../assets/chat.png')}
