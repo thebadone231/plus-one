@@ -45,7 +45,7 @@ const ChatScreen = ({ navigation, userid }) => {
       .catch(console.error);
 
     if (session.length != 0) {
-      console.log(session.length);
+      //console.log(session.length);
       //const myTimeout = setTimeout(unsubscribe, 3000);
       const q = query(
         collection(db, 'session', 'chat history', session),
@@ -66,7 +66,7 @@ const ChatScreen = ({ navigation, userid }) => {
 
   const onSend = useCallback(
     (messages = []) => {
-      console.log(session.length);
+      //console.log(session.length);
       if (session.length == 0) {
         setMessages([
           {
@@ -84,8 +84,8 @@ const ChatScreen = ({ navigation, userid }) => {
         setMessages((previousMessages) =>
           GiftedChat.append(previousMessages, messages)
         );
-        console.log(messages[0]); // messages[0] is always the newest message
-        console.log(session.length);
+        //console.log(messages[0]); // messages[0] is always the newest message
+        //console.log(session.length);
 
         const { _id, createdAt, text, user } = messages[0];
         addDoc(collection(db, 'session', 'chat history', session), {
