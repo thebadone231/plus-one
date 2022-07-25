@@ -102,7 +102,7 @@ const RequestCard = ({ request = {}, navigation }) => {
           </View>
           <View style={styles.chatIconContainer}>
             <TouchableOpacity onPress={()=> {
-              setDoc(doc(db, 'session', user.email, request['requestid'], 'test'), {
+              setDoc(doc(db, 'session', 'chat history', request['requestid'], 'test'), {
                 _id: '',
                 text: '',
                 createdAt: new Date(),
@@ -112,7 +112,7 @@ const RequestCard = ({ request = {}, navigation }) => {
                     avatar: ''
                 },
             },);
-              setDoc(doc(db, 'session', user.email), {current: request['requestid']});
+              setDoc(doc(db, 'users', user.email), {'chat session': request['requestid']}, { merge: true });
               navigation.navigate("ChatScreen")}}
             >
               <Image
