@@ -124,13 +124,22 @@ To get a local copy up and running follow these simple example steps.
 ### Home Tab
 
 <div align="center">
-<img src="assets/Home 1.jpg" alt="Home page 1" width="200" height="400">
-<img src="assets/Home 2.jpg" alt="Home page 2" width="200" height="400">
-<img src="assets/Home 3.jpg" alt="Home page 3" width="200" height="400">
-<img src="assets/Home 4.jpg" alt="Home page 4" width="200" height="400">
-<img src="assets/Home 5.jpg" alt="Home page 5" width="200" height="400">
-<img src="assets/Home 6.jpg" alt="Home page 6" width="200" height="400">
-<img src="assets/Home 7.jpg" alt="Home page 7" width="200" height="400">
+<img src="assets/Home_1.jpg" alt="Home page 1" width="200" height="400">
+<img src="assets/Home_2.jpg" alt="Home page 2" width="200" height="400">
+<img src="assets/Home_3.jpg" alt="Home page 3" width="200" height="400">
+<img src="assets/Home_4.jpg" alt="Home page 4" width="200" height="400">
+<img src="assets/Home_5.jpg" alt="Home page 5" width="200" height="400">
+<img src="assets/Home_6.jpg" alt="Home page 6" width="200" height="400">
+<img src="assets/Home_7.jpg" alt="Home page 7" width="200" height="400">
+<img src="assets/Home_8.jpg" alt="Home page 8" width="200" height="400">
+<img src="assets/Home_9.jpg" alt="Home page 9" width="200" height="400">
+<img src="assets/Home_10.jpg" alt="Home page 10" width="200" height="400">
+<img src="assets/Home_11.jpg" alt="Home page 11" width="200" height="400">
+<img src="assets/Home_12.jpg" alt="Home page 12" width="200" height="400">
+<img src="assets/Home_13.jpg" alt="Home page 13" width="200" height="400">
+<img src="assets/Home_14.jpg" alt="Home page 14" width="200" height="400">
+<img src="assets/Home_15.jpg" alt="Home page 15" width="200" height="400">
+<img src="assets/Home_16.jpg" alt="Home page 16" width="200" height="400">
 </div>
 <br />
 
@@ -146,10 +155,18 @@ To get a local copy up and running follow these simple example steps.
 ### Request Tab
 
 <div align="center">
-<img src="assets/Request 1.jpg" alt="Request page 1" width="200" height="400">
-<img src="assets/Request 2.jpg" alt="Request page 2" width="200" height="400">
-<img src="assets/Request 3.jpg" alt="Request page 3" width="200" height="400">
-<img src="assets/Request 4.jpg" alt="Request page 4" width="200" height="400">
+<img src="assets/Request_1.jpg" alt="Request page 1" width="200" height="400">
+<img src="assets/Request_2.jpg" alt="Request page 2" width="200" height="400">
+<img src="assets/Request_3.jpg" alt="Request page 3" width="200" height="400">
+<img src="assets/Request_4.jpg" alt="Request page 4" width="200" height="400">
+<img src="assets/Request_5.jpg" alt="Request page 5" width="200" height="400">
+<img src="assets/Request_6.jpg" alt="Request page 6" width="200" height="400">
+<img src="assets/Request_7.jpg" alt="Request page 7" width="200" height="400">
+<img src="assets/Request_8.jpg" alt="Request page 8" width="200" height="400">
+<img src="assets/Request_9.jpg" alt="Request page 9" width="200" height="400">
+<img src="assets/Request_10.jpg" alt="Request page 10" width="200" height="400">
+<img src="assets/Request_11.jpg" alt="Request page 11" width="200" height="400">
+<img src="assets/Request_12.jpg" alt="Request page 12" width="200" height="400">
 </div>
 <br />
 
@@ -180,27 +197,15 @@ To get a local copy up and running follow these simple example steps.
 
 ## Roadmap
 
-### 1. Allow sorting and filtering of requests in Home screen
-
-Currently, there are filters in the frontend of the app already. However, these are static and have no functionality. We will incorporate them and make them functional before the next milestone.
-
-### 2. Only display requests which have not expired
-
-Currently, all of the requests are displayed regardless of whether they have expired or not. We would like to filter out expired requests and only show current ones.
-
-### 3. Allow user who created the request to edit and delete the request
+### 1. Allow user who created the request to edit and delete the request
 
 We would like the user to have the option to edit and delete requests that they have posted since there could be issues like typos and change of orders.
 
-### 4. Implement the activity screen
+### 2. +1 feature
 
-Allow users to see past and current requests on a separate tab.
+Currently, users cannot directly "+1" to a request, indicating that they too would like to add on to the request. Instead, they can chat directly in the chat for that request to do so. However, in the future, we would like to implement this feature separately as users might not want others to know about their order and exact delivery location.
 
-### 5. Live in-app chat
-
-We would like to enable users to have a live in-app chat so that they can clarify with one another on details of the order as well as meetup location if needed.
-
-### 6. Reward recommendation system
+### 3. Reward recommendation system
 
 As some users might not know how much to reward others for completing their requests, we would like to provide users with a suggested range that they could take reference from.
 
