@@ -41,9 +41,10 @@ const FAQScreen = ({ navigation }) => {
     },
     {
       title: 'How do I cancel my order?',
-      content: 'Lorem ipsum...',
+      content: 'To be updated...',
     },
-    {title: 'I am unable to contact the buyer',
+    {
+      title: 'I am unable to contact the buyer',
       content:
         'Have you given our in app chat function a try?\nElse you can find the contact details of the buyer\nin the +1 request ',
     },
@@ -58,7 +59,14 @@ const FAQScreen = ({ navigation }) => {
         <Text style={{ fontSize: 17, fontWeight: '600', marginTop: 10 }}>
           {section.title}
         </Text>
-        <Image style={{ width: 15, height: 15 }} source={active_sections.includes(index) ? require('../../assets/circled-chevron-up.png'): require('../../assets/circled-chevron-down.png')}/>
+        <Image
+          style={{ width: 15, height: 15 }}
+          source={
+            active_sections.includes(index)
+              ? require('../../assets/circled-chevron-up.png')
+              : require('../../assets/circled-chevron-down.png')
+          }
+        />
       </View>
     );
   };
@@ -76,8 +84,14 @@ const FAQScreen = ({ navigation }) => {
   //function for uploading of feedback
   const upload_feedback = async () => {
     var today = new Date();
-    var date = today.getFullYear() + '-' +(today.getMonth() + 1) +'-' +today.getDate();
-    var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    var date =
+      today.getFullYear() +
+      '-' +
+      (today.getMonth() + 1) +
+      '-' +
+      today.getDate();
+    var time =
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     const dateTime = date + ' ' + time;
     await setDoc(
       userFeedbackDocRef,
@@ -90,15 +104,21 @@ const FAQScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{...styles.container, justifyContent:'center'}}>
-      <View style={{flex:5, justifyContent:'flex-end', alignItems:'center'}}>
-        <TouchableOpacity style={{width:'19%'}}  onPress={()=>{navigation.navigate('MainInterface')}}>
-          <Text style={{...styles.mainLogo}}> +1 </Text>
+    <View style={{ ...styles.container, justifyContent: 'center' }}>
+      <View
+        style={{ flex: 5, justifyContent: 'flex-end', alignItems: 'center' }}
+      >
+        <TouchableOpacity
+          style={{ width: '19%' }}
+          onPress={() => {
+            navigation.navigate('MainInterface');
+          }}
+        >
+          <Text style={{ ...styles.mainLogo }}> +1 </Text>
         </TouchableOpacity>
       </View>
-    
 
-      <View style={{flex:23, marginTop: 10 }}>
+      <View style={{ flex: 23, marginTop: 10 }}>
         <KeyboardAwareScrollView>
           <Accordion
             activeSections={active_sections}
@@ -117,14 +137,27 @@ const FAQScreen = ({ navigation }) => {
               </Text>
             </View>
 
-            <View style={{flex: 11, justifyContent: 'center', alignItems: 'center', width: '100%',}}>
-              <TextInput style={styles.feedbackText}
+            <View
+              style={{
+                flex: 11,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <TextInput
+                style={styles.feedbackText}
                 multiline={true}
                 placeholder="Details: "
                 returnKeyType="done"
-                onSubmitEditing={() => {Keyboard.dismiss();}}
+                onSubmitEditing={() => {
+                  Keyboard.dismiss();
+                }}
                 blurOnSubmit={true}
-                onChangeText={(text) => {setFeedback(text);}}/>
+                onChangeText={(text) => {
+                  setFeedback(text);
+                }}
+              />
             </View>
 
             <View style={{ flex: 3, alignItems: 'center', width: '100%' }}>
@@ -174,19 +207,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  content:{
-    alignItems: 'center', 
-    backgroundColor: '#E8EDFF', 
-    padding: 7, 
+  content: {
+    alignItems: 'center',
+    backgroundColor: '#E8EDFF',
+    padding: 7,
     borderRadius: 15,
   },
 
   feedback: {
-    alignItems: 'center', 
-    width: '100%', 
-    height: 360, 
+    alignItems: 'center',
+    width: '100%',
+    height: 360,
     marginTop: 30,
-  }, 
+  },
 
   feedbackText: {
     height: '85%',
@@ -197,17 +230,16 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontSize: 15,
     fontWeight: '500',
-}, 
+  },
 
-submitButton: {
-  backgroundColor: 'white',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '23%',
-  height: '37%',
-  borderRadius: 7,
-}
-
+  submitButton: {
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '23%',
+    height: '37%',
+    borderRadius: 7,
+  },
 });
 
 export default FAQScreen;
