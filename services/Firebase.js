@@ -92,13 +92,9 @@ export const AuthenticationContextProvider = ({ children }) => {
             homeAddress: homeAddress,
             postalCode: postalCode,
           },
-          requests: {
-            current: {},
-            taken: {},
-            completed: {},
-            cancelled: {},
-            expired: {},
-          },
+          requests: {},
+          "plus-one":{}, 
+          "deliveries":{}
         });
         console.log(firebase.auth().currentUser);
       })
