@@ -223,6 +223,9 @@ const RequestScreen = () => {
   const [emptyPaymentMethodAlert, setEmptyPaymentMethodAlert] = useState(false);
   // empty price alert
   const [emptyPriceAlert, setEmptyPriceAlert] = useState(false);
+  // delivery time expired
+  const [expiredDeliveryTimeAlert, setExpiredDeliveryTimeAlert] =
+    useState(false);
 
   return (
     <View style={{ ...styles.container, justifyContent: 'center' }}>
@@ -372,6 +375,8 @@ const RequestScreen = () => {
                 marginTop: 40,
               }}
               onPress={() => {
+                const currentTime = Date.now().valueOf();
+                const deliveryTime = deliveryDate.valueOf();
                 if (
                   requestData['deliveryLocation'] == null ||
                   requestData['productName'] == null ||
@@ -382,6 +387,8 @@ const RequestScreen = () => {
                   setEmptyPaymentMethodAlert(true);
                 } else if (selectedPrice == null) {
                   setEmptyPriceAlert(true);
+                } else if (currentTime >= deliveryTime) {
+                  setExpiredDeliveryTimeAlert(true);
                 } else {
                   write_request();
                 }
@@ -442,6 +449,19 @@ const RequestScreen = () => {
         cancelText="Close"
         onCancelPressed={() => {
           setEmptyPriceAlert(false);
+        }}
+      />
+
+      <AwesomeAlert
+        show={expiredDeliveryTimeAlert}
+        title="Invalid Delivery Time"
+        message="Please choose a valid delivery time"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={true}
+        cancelText="Close"
+        onCancelPressed={() => {
+          setExpiredDeliveryTimeAlert(false);
         }}
       />
     </View>
