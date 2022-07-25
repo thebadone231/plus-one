@@ -24,8 +24,6 @@ import { Timestamp } from 'firebase/firestore';
 Geocoder.init(GOOGLEAPIKEY, { language: 'en' });
 
 const HomeScreen = ({ navigation }) => {
-  const { user, handleSignout } = useContext(AuthenticationContext);
-
   // for top of screen location searchbar text
   const [searchText, setSearchText] = useState('');
 
@@ -445,7 +443,10 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} navigation = {navigation} />
+                                        <RequestCard
+                                          request={doc}
+                                          navigation={navigation}
+                                        />
                                       </View>
                                     );
                                   }
@@ -456,7 +457,10 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} navigation = {navigation} />
+                                        <RequestCard
+                                          request={doc}
+                                          navigation={navigation}
+                                        />
                                       </View>
                                     );
                                   }
@@ -476,7 +480,10 @@ const HomeScreen = ({ navigation }) => {
                                   if (distance >= parseInt(valueFilter)) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} navigation = {navigation} />
+                                        <RequestCard
+                                          request={doc}
+                                          navigation={navigation}
+                                        />
                                       </View>
                                     );
                                   }
@@ -484,7 +491,10 @@ const HomeScreen = ({ navigation }) => {
                                   if (distance <= parseInt(valueFilter)) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} navigation = {navigation} />
+                                        <RequestCard
+                                          request={doc}
+                                          navigation={navigation}
+                                        />
                                       </View>
                                     );
                                   }
@@ -500,7 +510,10 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} navigation = {navigation} />
+                                        <RequestCard
+                                          request={doc}
+                                          navigation={navigation}
+                                        />
                                       </View>
                                     );
                                   }
@@ -511,7 +524,10 @@ const HomeScreen = ({ navigation }) => {
                                   ) {
                                     return (
                                       <View>
-                                        <RequestCard request={doc} navigation = {navigation} />
+                                        <RequestCard
+                                          request={doc}
+                                          navigation={navigation}
+                                        />
                                       </View>
                                     );
                                   }
@@ -525,7 +541,10 @@ const HomeScreen = ({ navigation }) => {
                               // check if requests have expired
                               return (
                                 <View>
-                                  <RequestCard request={doc} navigation = {navigation} />
+                                  <RequestCard
+                                    request={doc}
+                                    navigation={navigation}
+                                  />
                                 </View>
                               );
                             }

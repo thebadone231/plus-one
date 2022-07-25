@@ -1,8 +1,8 @@
-import React,{useContext, useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Text, Image, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
 import { doc, getDoc, setDoc, addDoc, collection } from 'firebase/firestore';
-import { db, auth, AuthenticationContext, } from '../../services/Firebase';
+import { db, auth, AuthenticationContext } from '../../services/Firebase';
 
 const RequestCard = ({ request = {}, navigation }) => {
   const [requestdata, setRequestData] = useState([]);
@@ -11,7 +11,6 @@ const RequestCard = ({ request = {}, navigation }) => {
   const requestDocRef = doc(db, 'requests/' + request['requestid']);
   const sessionDocRef = doc(db, 'session/' + user.email);
 
-
   useEffect(() => {
     const getRequestData = async () => {
       const requestDatabase = await getDoc(requestDocRef);
@@ -19,9 +18,9 @@ const RequestCard = ({ request = {}, navigation }) => {
     };
 
     getRequestData()
-      .then(() => {
-      })
-      .catch((error) => {console.log(error);
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
@@ -35,6 +34,7 @@ const RequestCard = ({ request = {}, navigation }) => {
     deliverBy = '1400',
     paymentMethod = 'Cash',
     contactNumber = '91234567',
+    orderID = '',
   } = request;
 
   return (
@@ -101,19 +101,26 @@ const RequestCard = ({ request = {}, navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.chatIconContainer}>
-            <TouchableOpacity onPress={()=> {
-              setDoc(doc(db, 'session', user.email, request['requestid'], 'test'), {
-                _id: '',
-                text: '',
-                createdAt: new Date(),
-                user: {
+            <TouchableOpacity
+              onPress={() => {
+                setDoc(
+                  doc(db, 'requests', user.email, request['requestid'], 'test'),
+                  {
                     _id: '',
-                    name: '',
-                    avatar: ''
-                },
-            },);
-              setDoc(doc(db, 'session', user.email), {current: request['requestid']});
-              navigation.navigate("ChatScreen")}}
+                    text: '',
+                    createdAt: new Date(),
+                    user: {
+                      _id: '',
+                      name: '',
+                      avatar: '',
+                    },
+                  }
+                );
+                setDoc(doc(db, 'session', user.email), {
+                  current: request['requestid'],
+                });
+                navigation.navigate('ChatScreen');
+              }}
             >
               <Image
                 style={styles.chatIcon}
@@ -131,6 +138,14 @@ const RequestCard = ({ request = {}, navigation }) => {
     </Card>
   );
 };
+
+/*
+chat : {
+  user: ownerEmail,
+  asker: askerEmail,
+  chatHistory: {}
+}
+*/
 
 const styles = StyleSheet.create({
   card: {
