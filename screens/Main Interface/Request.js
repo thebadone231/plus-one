@@ -124,11 +124,6 @@ const RequestScreen = () => {
             time: '',
           },
         },
-        chat: {
-          requestOwner: userData['userName'],
-          requestAsker: '',
-          chatHistory: [],
-        },
       };
 
       console.log(request);

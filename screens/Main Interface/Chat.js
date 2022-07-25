@@ -30,13 +30,14 @@ const ChatScreen = ({ navigation, userid }) => {
   const [session, setSession] = useState('');
 
   const { user } = useContext(AuthenticationContext);
-  const chatDocRef = doc(db, 'session/' + user.email);
+  const chatDocRef = doc(db, 'users/' + user.email);
   //console.log(user.email);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getsession = async () => {
-      const chatData = await getDoc(chatDocRef);
-      setSession(chatData.data()['current']);
+      const chatid = await getDoc(chatDocRef);
+      console.log(chatid.data()['chat session']);
+      setSession(chatid.data()['chat session']);
     };
 
     getsession()
@@ -47,7 +48,7 @@ const ChatScreen = ({ navigation, userid }) => {
       console.log(session.length);
       //const myTimeout = setTimeout(unsubscribe, 3000);
       const q = query(
-        collection(db, 'session', auth.currentUser.email, session),
+        collection(db, 'session', 'chat history', session),
         orderBy('createdAt', 'desc')
       );
       const unsubscribe = onSnapshot(q, (snapshot) =>
@@ -87,7 +88,7 @@ const ChatScreen = ({ navigation, userid }) => {
         console.log(session.length);
 
         const { _id, createdAt, text, user } = messages[0];
-        addDoc(collection(db, 'session', auth.currentUser.email, session), {
+        addDoc(collection(db, 'session', 'chat history', session), {
           _id,
           createdAt,
           text,
@@ -102,9 +103,11 @@ const ChatScreen = ({ navigation, userid }) => {
     <GiftedChat
       messages={messages}
       onSend={(messages) => onSend(messages)}
+      renderUsernameOnMessage={true}
       user={{
-        _id: auth?.currentUser?.email,
-        name: auth?.currentUser?.displayName,
+        _id: auth.currentUser.email,
+        name: auth.currentUser.email,
+        avatar: require('../../assets/user.png'),
       }}
     />
   );

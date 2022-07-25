@@ -34,7 +34,6 @@ const RequestCard = ({ request = {}, navigation }) => {
     deliverBy = '1400',
     paymentMethod = 'Cash',
     contactNumber = '91234567',
-    orderID = '',
   } = request;
 
   return (
@@ -96,15 +95,21 @@ const RequestCard = ({ request = {}, navigation }) => {
             <Text>{contactNumber}</Text>
           </View>
           <View style={styles.plusoneIconContainer}>
-            <TouchableOpacity style={styles.plusoneIcon}>
+            {/* <TouchableOpacity style={styles.plusoneIcon}>
               <Text>+1</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.chatIconContainer}>
             <TouchableOpacity
               onPress={() => {
                 setDoc(
-                  doc(db, 'requests', user.email, request['requestid'], 'test'),
+                  doc(
+                    db,
+                    'session',
+                    'chat history',
+                    request['requestid'],
+                    'test'
+                  ),
                   {
                     _id: '',
                     text: '',
@@ -116,9 +121,11 @@ const RequestCard = ({ request = {}, navigation }) => {
                     },
                   }
                 );
-                setDoc(doc(db, 'session', user.email), {
-                  current: request['requestid'],
-                });
+                setDoc(
+                  doc(db, 'users', user.email),
+                  { 'chat session': request['requestid'] },
+                  { merge: true }
+                );
                 navigation.navigate('ChatScreen');
               }}
             >
@@ -131,21 +138,13 @@ const RequestCard = ({ request = {}, navigation }) => {
         </View>
       </View>
       <View style={styles.deliverRow}>
-        <TouchableOpacity style={styles.deliverButton}>
+        {/* <TouchableOpacity style={styles.deliverButton}>
           <Text style={styles.deliverText}>Deliver</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </Card>
   );
 };
-
-/*
-chat : {
-  user: ownerEmail,
-  asker: askerEmail,
-  chatHistory: {}
-}
-*/
 
 const styles = StyleSheet.create({
   card: {

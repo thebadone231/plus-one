@@ -24,6 +24,8 @@ import { Timestamp } from 'firebase/firestore';
 Geocoder.init(GOOGLEAPIKEY, { language: 'en' });
 
 const HomeScreen = ({ navigation }) => {
+  const { user, handleSignout } = useContext(AuthenticationContext);
+
   // for top of screen location searchbar text
   const [searchText, setSearchText] = useState('');
 
