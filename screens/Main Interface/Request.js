@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-  Keyboard,
-  Button,
-} from 'react-native';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, Keyboard, Button,} from 'react-native';
 import { auth, db } from '../../services/Firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -21,11 +11,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 const RequestScreen = () => {
   const [requestData, setRequestData] = useState({});
   const [userData, setUserData] = useState({});
-  const [heightDimension, setHeightDimension] = useState({
-    productName: '77%',
-    deliveryLocation: '77%',
-    orderDetails: '77%',
-  });
+  const [heightDimension, setHeightDimension] = useState({ productName: '77%', deliveryLocation: '77%',orderDetails: '77%',}); //auto update the height of text input
   const [alert, setAlert] = useState({ status: false, title: '', message: '' });
 
   const userDocRef = doc(db, 'users/' + auth.currentUser.email);
@@ -46,23 +32,17 @@ const RequestScreen = () => {
       <View style={styles.input_container}>
         <Text style={{ fontSize: 15, fontWeight: '500' }}>{field_name}: </Text>
         <TextInput
-          style={
-            dynamic === true
-              ? { ...styles.inputBox, height: heightDimension[key] }
-              : styles.inputBox
-          }
+          style={dynamic === true ? { ...styles.inputBox, height: heightDimension[key] } : styles.inputBox}
           multiline={true}
           returnKeyType="done"
-          onSubmitEditing={() => {
-            Keyboard.dismiss();
-          }}
+          onSubmitEditing={() => {Keyboard.dismiss();}}
           onChangeText={(text) => {
             let newdata = requestData;
             newdata[key] = text;
             setRequestData(newdata);
           }}
           onContentSizeChange={(Event) => {
-            //setHeightDimension(Event.nativeEvent.contentSize.height)
+            // set height of container according to size of content
             if (dynamic === true) {
               let newHeight = { ...heightDimension };
               if (Event.nativeEvent.contentSize.height > 33.666666666666664) {
@@ -81,15 +61,12 @@ const RequestScreen = () => {
   //logic for writing of requests to firebase
   const write_request = async () => {
     let location;
+    //checking validty of location
     await Geocoder.from(requestData['deliveryLocation'])
-      .then((json) => {
-        location = json.results[0].geometry.location;
-        console.log(location);
-      })
-      .catch((error) => {
-        console.error;
-      });
+      .then((json) => {location = json.results[0].geometry.location;console.log(location);})
+      .catch((error) => {console.error;});
 
+    //if location is valid
     if (location) {
       var today = new Date();
       var date =
@@ -126,31 +103,15 @@ const RequestScreen = () => {
         },
       };
 
-      console.log(request);
-
+    
+      //writing to database
       const requestsRef = doc(db, 'requests/' + id);
       await setDoc(userDocRef, { requests: { [id]: request } }, { merge: true })
-        .then(
-          await setDoc(
-            requestsRef,
-            { ...request, user: auth.currentUser.email },
-            { merge: true }
-          )
-        )
-        .then(
-          setAlert({
-            status: true,
-            title: 'Success',
-            message: 'Your +1 request has been received',
-          })
-        )
+        .then( await setDoc(requestsRef, { ...request, user: auth.currentUser.email },{ merge: true }))
+        .then( setAlert({status: true, title: 'Success', message: 'Your +1 request has been received',}))
         .catch(console.error);
     } else {
-      setAlert({
-        status: true,
-        title: 'Failure',
-        message: 'Please input a valid delivery address',
-      });
+      setAlert({status: true, title: 'Failure', message: 'Please input a valid delivery address',});
     }
   };
 
@@ -230,15 +191,13 @@ const RequestScreen = () => {
   return (
     <View style={{ ...styles.container, justifyContent: 'center' }}>
       <View style={{ height: '65%' }}>
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ fontSize: 23, fontWeight: '600' }}>Your Request</Text>
         </View>
+
         <View style={{ flex: 6 }}>
-          <View
-            style={{ alignItems: 'center', justifyContent: 'space-around' }}
-          >
+          <View style={{ alignItems: 'center', justifyContent: 'space-around' }}>
             {input_component('Product Name', 'productName', true)}
             {input_component('Delivery Location', 'deliveryLocation', true)}
             {input_component('Order Details', 'orderDetails', true)}

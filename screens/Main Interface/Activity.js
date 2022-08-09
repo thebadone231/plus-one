@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {View, StyleSheet, Text, Image,} from 'react-native';
 import { auth, db } from '../../services/Firebase';
 import { getDoc, doc } from 'firebase/firestore';
-import AwesomeAlert from 'react-native-awesome-alerts';
 import SelectDropdown from 'react-native-select-dropdown';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -23,8 +13,6 @@ const ActivityScreen = () => {
   const [type, setType] = useState('');
   const [time, setTime] = useState('');
   const [active_sections, setactive_sections] = useState([]);
-  const [dataState, setDataState] = useState(false);
-  const [alert, setAlert] = useState(false);
 
   const userDocRef = doc(db, 'users/' + auth.currentUser.email);
 
@@ -37,8 +25,7 @@ const ActivityScreen = () => {
       setDeliveriesData(userdata['deliveries']);
     };
 
-    getUserData()
-      .then(() => {})
+    getUserData().then(() => {})
       .catch((error) => {
         console.error;
       });
@@ -69,46 +56,23 @@ const ActivityScreen = () => {
             <Text></Text>
           </View>
 
-          <View
-            style={{
-              backgroundColor: '#E8EDFF',
-              padding: 5,
-              flexDirection: 'row',
-              borderRadius: 3,
-            }}
-          >
-            <View
-              style={{
-                flex: 7,
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: '600',
-                  marginRight: 14,
-                  marginLeft: 15,
-                }}
-              >
+          <View style={{ backgroundColor: '#E8EDFF', padding: 5, flexDirection: 'row', borderRadius: 3,}}>
+            <View style={{flex: 7, flexDirection: 'row', justifyContent: 'center',}}>
+              <Text style={{fontSize: 18, fontWeight: '600', marginRight: 14, marginLeft: 15,}}>
                 {section.title['name']}
               </Text>
+
               <Text style={{ fontSize: 18, fontWeight: '600' }}>
                 {section.title['price']}
               </Text>
             </View>
 
             <View style={{ flex: 2 }}>
-              <Image
-                style={{ width: 18, height: 18 }}
-                source={
-                  active_sections.includes(index)
-                    ? require('../../assets/circled-chevron-up.png')
-                    : require('../../assets/circled-chevron-down.png')
-                }
+              <Image style={{ width: 18, height: 18 }}
+                source={ active_sections.includes(index) ? require('../../assets/circled-chevron-up.png') : require('../../assets/circled-chevron-down.png')}
               />
             </View>
+
           </View>
         </View>
 
@@ -198,7 +162,7 @@ const ActivityScreen = () => {
   );
 
   let sections = [];
-  //processing of data for rendering
+  //processing of data for rendering: determining the correct type of data to display
   if (time && type) {
     //logic processing
     var userData = plusoneData;
@@ -232,9 +196,8 @@ const ActivityScreen = () => {
 
     //filtering data by time period
     var temp = Object.keys(userData).filter((item) => dateFilter(comp, item));
-    //console.log(temp.length)
 
-    //2nd round of data processing
+    //2nd round of data processing: filtering out irrelevant data in the data type obtained above
     for (var i of temp) {
       sections.push({
         title: {
@@ -264,7 +227,7 @@ const ActivityScreen = () => {
           />
         </KeyboardAwareScrollView>
       );
-    } else {
+    } else { //display that will be rendered when the user has yet to have information in the fields selected
       main_component = (
         <View style={{ alignItems: 'center' }}>
           <Text>

@@ -1,14 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, ScrollView,} from 'react-native';
 import { auth, db } from '../../services/Firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { updatePassword, updateEmail } from 'firebase/auth';
@@ -20,17 +11,8 @@ const ProfileScreen = ({ navigation }) => {
   const [renderState, setRenderState] = useState(false);
   const [userData, setUserData] = useState({});
   const [visible, setVisibility] = useState({ name: 'eye-off' });
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    password: '',
-  });
-  const [alert, setAlert] = useState({
-    status: false,
-    title: '',
-    message: '',
-    screen: '',
-  });
+  const [passwordData, setPasswordData] = useState({currentPassword: '', newPassword: '',password: '',});
+  const [alert, setAlert] = useState({status: false, title: '', message: '', screen: '',});
 
   const userDocRef = doc(db, 'users/' + auth.currentUser.email);
 
@@ -41,15 +23,14 @@ const ProfileScreen = ({ navigation }) => {
       setUserData(userDetails['userdata']);
     };
 
-    getUserData()
-      .then(() => {
+    getUserData().then(() => {
         setRenderState(true);
         console.log(userData);
-      })
-      .catch((error) => {
+      }).catch((error) => {
         setRenderState(false), console.log(error);
       });
-    console.log('hi');
+
+      
   }, []);
 
   //functional component - input boxes
@@ -79,6 +60,7 @@ const ProfileScreen = ({ navigation }) => {
 
   //logic for updating of particulars
   const update_particulars = async () => {
+    //password is missing
     if (passwordData['currentPassword'] === '') {
       setAlert({
         status: true,
@@ -87,31 +69,29 @@ const ProfileScreen = ({ navigation }) => {
           'Please key in your current password to update your particulars',
         screen: 'Profile',
       });
-    } else if (userData['password'] !== passwordData['currentPassword']) {
+    } else if (userData['password'] !== passwordData['currentPassword']) { //current password is wrong
       setAlert({
         status: true,
         title: 'Unsuccessful Update',
         message: 'Current password is incorrect',
         screen: 'Profile',
       });
-    } else if (passwordData['newPassword'] !== passwordData['password']) {
+    } else if (passwordData['newPassword'] !== passwordData['password']) { //new password does not match
       setAlert({
         status: true,
         title: 'Unsuccessful Update',
         message: 'New password and confirm password do not match',
         screen: 'Profile',
       });
-    } else if (
-      passwordData['newPassword'].length !== 0 &&
-      passwordData['newPassword'].length < 8
-    ) {
+    } else if (passwordData['newPassword'].length !== 0 && passwordData['newPassword'].length < 8) {  //password is too short ie >8 characters
       setAlert({
         status: true,
         title: 'Unsuccessful Update',
         message: 'Your password has to contain a minimal of 8 characters',
         screen: 'Profile',
       });
-    } else {
+    } else { //all necessary information is correct
+      //for password changes
       if (passwordData['newPassword'].length !== 0) {
         await updatePassword(auth.currentUser, passwordData['password'])
           .then(() => {
@@ -149,102 +129,60 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
-  //conditional rendering of profile page based on status of fetching of data
+  //conditional rendering of profile page based on status of query - loading icon
   let profilePage = (
-    <View
-      style={{
-        height: '100%',
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <View style={{height: '100%', width: '100%', justifyContent: 'center',alignItems: 'center',}}>
       <ActivityIndicator size="large" />
       <Text>loading user information</Text>
     </View>
   );
 
+  //if the query is completed
   if (renderState === true) {
     profilePage = (
       <View style={{ height: '100%', width: '100%' }}>
-        <View
-          style={{ flex: 3, alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Image
-            style={styles.iconDimension}
-            source={require('../../assets/user.png')}
-          />
+        <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center' }}>
+          <Image style={styles.iconDimension} source={require('../../assets/user.png')}/>
           <Text style={{ fontWeight: '500', fontSize: 17 }}>
             hello {userData['userName']}
           </Text>
         </View>
 
-        <View
-          style={{
-            flex: 15,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <View
-            style={{
-              flex: 3,
-              flexDirection: 'row',
-              width: '83%',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Image
-              style={{ width: 35, height: 35 }}
-              source={require('../../assets/exclamationMark.png')}
-            />
+        <View style={{flex: 15, alignItems: 'center', justifyContent: 'space-between',}}>
+          <View style={{flex: 3,flexDirection: 'row', width: '83%',justifyContent: 'space-between',}}>
+            <Image style={{ width: 35, height: 35 }} source={require('../../assets/exclamationMark.png')}/>
             <Text>
               Please sign out and log in again to change{'\n'}
               your email or password if it has been more{'\n'}
               than 1 min since you logged in
             </Text>
           </View>
+
+
           <View style={{ flex: 23, alignItems: 'center' }}>
             <KeyboardAwareScrollView>
-              {input_component(
-                'First Name',
-                userData['firstName'],
-                'firstName'
-              )}
+              {input_component( 'First Name',userData['firstName'],'firstName')}
               {input_component('Last Name', userData['lastName'], 'lastName')}
               {input_component('Username', userData['userName'], 'userName')}
               {input_component('Current Password', '', 'currentPassword', true)}
               {input_component('New Password', '', 'newPassword', true)}
               {input_component('Confirm Password', '', 'password', true)}
               {input_component('Email', userData['email'], 'email')}
-              {input_component(
-                'Contact Number',
-                userData['contactNumber'],
-                'contactNumber'
-              )}
-              {input_component(
-                'Home Address',
-                userData['homeAddress'],
-                'homeAddress'
-              )}
-              {input_component(
-                'Postal Code',
-                userData['postalCode'],
-                'postalCode'
-              )}
+              {input_component('Contact Number', userData['contactNumber'], 'contactNumber')}
+              {input_component('Home Address',userData['homeAddress'],'homeAddress')}
+              {input_component('Postal Code',userData['postalCode'],'postalCode')}
+
               <View style={{ width: '100%', alignItems: 'center' }}>
-                <TouchableOpacity
-                  style={styles.submitButton}
-                  onPress={() => {
-                    update_particulars();
-                  }}
-                >
+                <TouchableOpacity style={styles.submitButton} onPress={() => {update_particulars();}}>
                   <Text style={{ fontSize: 17, fontWeight: '600' }}>
                     update
                   </Text>
                 </TouchableOpacity>
               </View>
+
             </KeyboardAwareScrollView>
+
+
           </View>
         </View>
       </View>
@@ -254,12 +192,7 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={{ flex: 4, justifyContent: 'flex-end' }}>
-        <TouchableOpacity
-          style={{ alignItems: 'center' }}
-          onPress={() => {
-            navigation.navigate('HomeScreen');
-          }}
-        >
+        <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => {navigation.navigate('HomeScreen');}}>
           <Text style={{ ...styles.mainLogo }}> +1 </Text>
         </TouchableOpacity>
       </View>
