@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -12,6 +10,7 @@ import FAQStackScreen from '../Stack Navigation/FAQStackScreen';
 
 const Tab = createBottomTabNavigator();
 
+// icons for bottom tab navigator from expo vector-icons
 const TAB_ICON = {
   Home: 'md-home',
   Activity: 'md-time',

@@ -24,6 +24,7 @@ const RequestCard = ({ request = {}, navigation }) => {
       });
   }, []);
 
+  // default dummy data
   const {
     restaurantName = 'Mr Coconut',
     price = '$3.00',
@@ -103,8 +104,26 @@ const RequestCard = ({ request = {}, navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 //creating schat session for requests
-                setDoc(doc(db,'session','chat history',request['requestid'],'test'),{_id: '', text: '', createdAt: new Date(),user: {_id: '', name: '', avatar: '',},});
-                setDoc(doc(db, 'users', user.email), { 'chat session': request['requestid'] }, { merge: true });
+                setDoc(
+                  doc(
+                    db,
+                    'session',
+                    'chat history',
+                    request['requestid'],
+                    'test'
+                  ),
+                  {
+                    _id: '',
+                    text: '',
+                    createdAt: new Date(),
+                    user: { _id: '', name: '', avatar: '' },
+                  }
+                );
+                setDoc(
+                  doc(db, 'users', user.email),
+                  { 'chat session': request['requestid'] },
+                  { merge: true }
+                );
                 navigation.navigate('ChatScreen');
               }}
             >

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../Main Interface/Home';
 import ProfileScreen from '../Main Interface/Profile';
 
 const ProfileStack = createStackNavigator();

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Navigation } from './services/index';
 import { AuthenticationContextProvider } from './services/Firebase';
 

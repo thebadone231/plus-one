@@ -9,6 +9,7 @@ import { AuthenticationContext } from './Firebase';
 export const Navigation = () => {
   const { isAuthenticated } = useContext(AuthenticationContext);
 
+  // if user is authenticated, return main interface, else, make them sign in
   return (
     <NavigationContainer>
       {isAuthenticated ? <TabNavigator /> : <AuthenticationStackScreen />}

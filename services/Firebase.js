@@ -12,6 +12,7 @@ import { FIREBASEAPIKEY } from './config.js';
 
 const firebaseConfig = FIREBASEAPIKEY;
 
+// initialize firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -93,8 +94,8 @@ export const AuthenticationContextProvider = ({ children }) => {
             postalCode: postalCode,
           },
           requests: {},
-          "plus-one":{}, 
-          "deliveries":{}
+          'plus-one': {},
+          deliveries: {},
         });
         console.log(firebase.auth().currentUser);
       })

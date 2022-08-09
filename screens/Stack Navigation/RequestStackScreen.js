@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../Main Interface/Home';
 import RequestScreen from '../Main Interface/Request';
 
 const RequestStack = createStackNavigator();

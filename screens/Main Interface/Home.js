@@ -18,21 +18,18 @@ import { getDistance } from 'geolib';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Timestamp } from 'firebase/firestore';
 
-// to initialize geocoding which allows for converting of
-// latlong to location and vice versa
+// to initialize geocoding which allows for converting of latlong to location and vice versa
 
 Geocoder.init(GOOGLEAPIKEY, { language: 'en' });
 
 const HomeScreen = ({ navigation }) => {
-  const { user, handleSignout } = useContext(AuthenticationContext);
-
   // for top of screen location searchbar text
   const [searchText, setSearchText] = useState('');
 
   // to check if we have the user's location already
   const [locationReady, setLocationReady] = useState(false);
 
-  // position to be used by react native maps,
+  // position to be used by react native maps
   // default location is NUS
   const [position, setPosition] = useState({
     latitude: 1.290665504,
@@ -291,7 +288,7 @@ const HomeScreen = ({ navigation }) => {
     <>
       <SafeArea>
         <View style={styles.container}>
-          {toggleMap ? (
+          {toggleMap ? ( // if user chose to open interactive map
             <>
               <CurrentLocationFinder />
               <View
@@ -308,7 +305,7 @@ const HomeScreen = ({ navigation }) => {
                       position['latitude'],
                       position['longitude']
                     );
-                    setToggleMap((prevToggleMap) => !prevToggleMap);
+                    setToggleMap((prevToggleMap) => !prevToggleMap); // close the interactive map
                   }}
                 >
                   <Text style={styles.locationButtonText}>Set My Location</Text>
@@ -435,8 +432,9 @@ const HomeScreen = ({ navigation }) => {
                       {isRequestLoaded ? (
                         isRequestFiltered ? (
                           requestQuery.map((doc) => {
+                            // check if requests have expired
                             if (doc.deliverBy.getTime() > Date.now()) {
-                              // check if requests have expired
+                              // if price is chosen
                               if (valueCategory == 'price') {
                                 if (valueDirection == 'larger') {
                                   if (
@@ -467,6 +465,7 @@ const HomeScreen = ({ navigation }) => {
                                     );
                                   }
                                 }
+                                // if distance is chosen
                               } else if (valueCategory == 'distance') {
                                 var distance = getDistance(
                                   {
@@ -501,6 +500,7 @@ const HomeScreen = ({ navigation }) => {
                                     );
                                   }
                                 }
+                                // if time is chosen
                               } else if (valueCategory == 'time') {
                                 var requestTime = doc.deliverBy.getTime();
                                 var currentTime = Date.now();

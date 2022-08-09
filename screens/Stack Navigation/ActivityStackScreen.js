@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ActivityScreen from '../Main Interface/Activity';
-import HomeScreen from '../Main Interface/Home';
 
 const ActivityStack = createStackNavigator();
 
